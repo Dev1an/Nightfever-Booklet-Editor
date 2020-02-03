@@ -1,0 +1,115 @@
+<html>
+	<style>
+		html {
+			font-family: "Optima", serif;
+			font-size: 4.2mm;
+		}
+		
+		html, body {
+			margin: 0;
+			padding: 0;
+			--paragraph-space: 2mm;
+		}
+		
+		@page {
+  		margin: 0;
+			padding: 0;
+		}
+		
+		@media screen {
+			section {
+				margin-top: 2mm;
+				min-height: 210mm;
+				width: 148mm;
+				border: 1mm solid gray;
+			}
+		}
+		
+		section {
+			padding: 10mm;
+			padding-top: 5mm;
+		}
+		
+		h1 { font-size: 7mm }
+		h2, h3 {
+			font-size: 6mm;
+			font-variant: small-caps
+		}
+		h1, h2, h3 {
+			font-family: "Palatino", serif;
+			margin-bottom: var(--paragraph-space);
+		}		
+
+		.center { text-align: center }
+		
+		p {
+			text-align: justify;
+		}
+				
+		ol {
+			list-style: none;
+			counter-reset: li;
+			--indentation: 1.2em;
+			padding-left: var(--indentation);
+			margin-top: var(--paragraph-space);
+			column-count: 2;
+		}
+		
+		li::before {
+			content: counter(li)".";
+  		display: block;
+			float: left;
+			width: var(--indentation);
+  		margin-left: calc(0em - var(--indentation));
+		}
+		
+		li {
+			counter-increment: li;
+			break-inside: avoid-column;
+			margin-right: calc(var(--indentation)/2);
+		}
+		
+		p, li {
+			margin-top: var(--paragraph-space);
+			margin-bottom: var(--paragraph-space);
+		}
+						
+	</style>
+	<body>
+		<section>
+			<h1 class="center">Supplementary sheet - Bijgevoegd blad</h1>
+			<h2 class="center">24 Oktober 2019</h2>
+		
+			<h3>Openingslied - Entrance Hymn</h3>
+			<ol>
+				<li>
+					Juicht voor de Heer, alle landen,<br>
+					Dient met blijdschap de Heer,<br>
+					Treedt onbezorgd voor zijn aanschijn.<br>
+					Waarlijk, de Heer is God.<br>
+				</li>
+				<li>
+					Juicht voor de Heer, alle landen,<br>
+					Dient met blijdschap de Heer,<br>
+					Treedt onbezorgd voor zijn aanschijn.<br>
+					Waarlijk, de Heer is God.<br>
+				</li>
+				<li>
+					Juicht voor de Heer, alle landen,<br>
+					Dient met blijdschap de Heer,<br>
+					Treedt onbezorgd voor zijn aanschijn.<br>
+					Waarlijk, de Heer is God.<br>
+				</li>
+			</ol>
+			
+			<h1>Dienst van het woord - Liturgy of the Word</h1>
+			<h3>Eerste lezing / First reading</h3>
+			<p>
+				Uit de brief van de heilige apostel Paulus aan de christenen van Rome.
+			</p>
+			<p>
+				Broeders en zusters, sprekend tot zwakke mensen druk ik mij erg menselijk uit. Zoals gij eertijds uw ledematen in dienst hebt gesteld van onreinheid en steeds grotere bandeloosheid, zo moet gij ze nu in dienst stellen van de gerechtigheid tot uw heiliging. Toen gij slaven waart van de zonde, stond gij vrij ten opzichte van de gerechtigheid. Welk voordeel had gij toen van daden waarover gij u thans schaamt? Want het einde daarvan is de dood. Maar nu, bevrijd van de zonde en dienstknechten geworden van God, oogst gij heiligheid en tenslotte eeuwig leven. Want het loon van de zonde is de dood, maar de gave van God is het eeuwige leven in Christus Jezus, onze Heer.
+			</p>
+		</section>
+	</body>
+</html>
