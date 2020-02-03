@@ -2,7 +2,6 @@
 	<style>
 		html {
 			font-family: "Optima", serif;
-			font-size: 4.2mm;
 		}
 		
 		html, body {
@@ -19,20 +18,21 @@
 		@media screen {
 			section {
 				margin-top: 2mm;
-				min-height: 210mm;
-				width: 148mm;
-				border: 1mm solid gray;
+				box-shadow: 0 0px 10px gray;
 			}
 		}
 		
 		section {
+			width: 128mm;
+			height: 189.5mm;
 			padding: 10mm;
-			padding-top: 5mm;
+			overflow: hidden;
+			background: #F0F0F0
 		}
 		
-		h1 { font-size: 7mm }
+		h1 { font-size: 6mm }
 		h2, h3 {
-			font-size: 6mm;
+			font-size: 5mm;
 			font-variant: small-caps
 		}
 		h1, h2, h3 {
@@ -42,9 +42,13 @@
 
 		.center { text-align: center }
 		
+		body, table {
+			font-size: 3.6mm;
+		}
+
 		p {
 			text-align: justify;
-		}
+		}		
 				
 		ol {
 			list-style: none;
@@ -67,11 +71,26 @@
 			counter-increment: li;
 			break-inside: avoid-column;
 			margin-right: calc(var(--indentation)/2);
+			padding-bottom: var(--paragraph-space)
 		}
 		
-		p, li {
+		p {
 			margin-top: var(--paragraph-space);
 			margin-bottom: var(--paragraph-space);
+		}
+		
+/*	Table styling	*/
+		
+		table {
+			border-spacing: 0;
+		}
+		
+		td {
+			vertical-align: top;
+		}
+		
+		td:first {
+			
 		}
 						
 	</style>
@@ -104,12 +123,31 @@
 			
 			<h1>Dienst van het woord - Liturgy of the Word</h1>
 			<h3>Eerste lezing / First reading</h3>
-			<p>
-				Uit de brief van de heilige apostel Paulus aan de christenen van Rome.
-			</p>
-			<p>
-				Broeders en zusters, sprekend tot zwakke mensen druk ik mij erg menselijk uit. Zoals gij eertijds uw ledematen in dienst hebt gesteld van onreinheid en steeds grotere bandeloosheid, zo moet gij ze nu in dienst stellen van de gerechtigheid tot uw heiliging. Toen gij slaven waart van de zonde, stond gij vrij ten opzichte van de gerechtigheid. Welk voordeel had gij toen van daden waarover gij u thans schaamt? Want het einde daarvan is de dood. Maar nu, bevrijd van de zonde en dienstknechten geworden van God, oogst gij heiligheid en tenslotte eeuwig leven. Want het loon van de zonde is de dood, maar de gave van God is het eeuwige leven in Christus Jezus, onze Heer.
-			</p>
+			<table>
+				<tr>
+					<td>
+						<p>
+							Uit de brief van de heilige apostel Paulus aan de christenen van Rome.
+						</p>
+						<p>
+							Broeders en zusters, sprekend tot zwakke mensen druk ik mij erg menselijk uit. Zoals gij eertijds uw ledematen in dienst hebt gesteld van onreinheid en steeds grotere bandeloosheid, zo moet gij ze nu in dienst stellen van de gerechtigheid tot uw heiliging. Toen gij slaven waart van de zonde, stond gij vrij ten opzichte van de gerechtigheid. Welk voordeel had gij toen van daden waarover gij u thans schaamt?
+						</p>
+					</td>
+					<td>
+						<p>From a letter of the apostle Paul to the Romans.</p>
+						<p>Brothers and sisters: I am speaking in human terms because of the weakness of your nature. For just as you present- ed the parts of your bodies as slaves to impurity and to lawlessness for lawless- ness, so now present them as slaves to righteousness for sanctification. For when you were slaves of sin, you were free from righteousness. But what profit did you get then from the things of which you are now ashamed?</p>
+					</td>
+				</tr>
+			</table>
+		</section>
+		<section>
+			Page 2
+		</section>
+		<section>
+			Page 3
+		</section>
+		<section>
+			Page 4
 		</section>
 	</body>
 </html>
