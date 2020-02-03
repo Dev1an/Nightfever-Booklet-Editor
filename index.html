@@ -22,15 +22,25 @@
 			}
 		}
 		
-		section {
-			width: 128mm;
-			height: 189.5mm;
-			padding: 10mm;
-			overflow: hidden;
-			background: #F0F0F0
+		@media print {
+			div.controls {
+				display: none;
+			}
 		}
 		
-		h1 { font-size: 6mm }
+		section {
+			width: 128mm;
+			min-height: 189.5mm;
+			padding: 10mm;
+			overflow: hidden;
+			background: #F0F0F0;
+			position: relative;
+		}
+		
+		h1 {
+			font-size: 6mm;
+			margin-top: 0;
+		}
 		h2, h3 {
 			font-size: 5mm;
 			font-variant: small-caps
@@ -42,8 +52,9 @@
 
 		.center { text-align: center }
 		
-		body, table {
+		p, table p, li {
 			font-size: 3.6mm;
+			line-height: 1.2;
 		}
 
 		p {
@@ -87,15 +98,81 @@
 		
 		td {
 			vertical-align: top;
+			padding: 0 2mm;
 		}
 		
-		td:first {
-			
+		td:first-of-type {
+			padding-left: 0;
+		}
+		
+		td:last-of-type {
+			padding-right: 0;
+		}
+		
+		div.controls {
+			position: absolute;
+			left: 155mm;
+		}
+		
+		div.page-indicator {
+			height: 1px;
+			background: red;
+			position: absolute;
+			top: 210mm;
+			left: 0;
+			right: 0;
 		}
 						
 	</style>
+	<script>
+		function wordify() {
+			const mm = document.querySelector('section').clientWidth / 148
+			const bibleReading = document.querySelector('.bible-reading')
+			textNodesUnder(bibleReading).forEach(function(textNode) {
+				const parent = textNode.parentNode
+				const fragment = document.createDocumentFragment()
+				const words = textNode.textContent.split(/\s+/)
+				const wordSpans = []
+				words.forEach(function(word) {
+					const span = document.createElement('span')
+					span.innerHTML = word
+					wordSpans.push(span)
+					fragment.appendChild(span)
+					fragment.appendChild(document.createTextNode(' '))
+				})
+				parent.replaceChild(fragment, textNode)
+				
+				const targetOffset = 200 * mm
+				const barrier = wordSpans.find(function(span) {
+					return sectionOffset(span, true) > targetOffset
+				})
+				if (barrier && barrier.textContent.length > 0) {
+					const space = document.createElement('div')
+					barrier.parentNode.insertBefore(space, barrier)
+					space.style.height = (220 - (sectionOffset(space, false)/mm)) + 'mm'
+					console.log(barrier, space.style.height)
+				}
+			})
+		}
+		
+		function sectionOffset(element, includeHeight) {
+			const sectionY = document.querySelector('section').getBoundingClientRect().y
+			const elementY = element.getBoundingClientRect().y
+			return elementY - sectionY + (includeHeight ? element.getBoundingClientRect().height : 0);
+		}
+		
+		function textNodesUnder(el){
+			var n, a=[], walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false);
+			while(n=walk.nextNode()) a.push(n);
+			return a;
+		}
+	</script>
 	<body>
+		<div class="controls">
+			<button onclick="wordify()">wordify</button>
+		</div>
 		<section>
+			<div class="page-indicator"></div>
 			<h1 class="center">Supplementary sheet - Bijgevoegd blad</h1>
 			<h2 class="center">24 Oktober 2019</h2>
 		
@@ -123,23 +200,28 @@
 			
 			<h1>Dienst van het woord - Liturgy of the Word</h1>
 			<h3>Eerste lezing / First reading</h3>
-			<table>
+			<table class="bible-reading">
 				<tr>
-					<td>
+					<td width=50%>
 						<p>
 							Uit de brief van de heilige apostel Paulus aan de christenen van Rome.
 						</p>
 						<p>
-							Broeders en zusters, sprekend tot zwakke mensen druk ik mij erg menselijk uit. Zoals gij eertijds uw ledematen in dienst hebt gesteld van onreinheid en steeds grotere bandeloosheid, zo moet gij ze nu in dienst stellen van de gerechtigheid tot uw heiliging. Toen gij slaven waart van de zonde, stond gij vrij ten opzichte van de gerechtigheid. Welk voordeel had gij toen van daden waarover gij u thans schaamt?
+							Broeders en zusters, sprekend tot zwakke mensen druk ik mij erg menselijk uit. Zoals gij eertijds uw ledematen in dienst hebt gesteld van onreinheid en steeds grotere bandeloosheid, zo moet gij ze nu in dienst stellen van de gerechtigheid tot uw heiliging. Toen gij slaven waart van de zonde, stond gij vrij ten opzichte van de gerechtigheid. Welk voordeel had gij toen van daden waarover gij u thans schaamt? Want het einde daarvan is de dood. Maar nu, bevrijd van de zonde en dienstknechten geworden van God, oogst gij heiligheid en tenslotte eeuwig leven. Want het loon van de zonde is de dood, maar de gave van God is het eeuwige leven in Christus Jezus, onze Heer.
 						</p>
 					</td>
-					<td>
+					<td width=50%>
+						<i>
 						<p>From a letter of the apostle Paul to the Romans.</p>
-						<p>Brothers and sisters: I am speaking in human terms because of the weakness of your nature. For just as you present- ed the parts of your bodies as slaves to impurity and to lawlessness for lawless- ness, so now present them as slaves to righteousness for sanctification. For when you were slaves of sin, you were free from righteousness. But what profit did you get then from the things of which you are now ashamed?</p>
+						<p>Brothers and sisters: I am speaking in human terms because of the weakness of your nature.<br>For just as you present- ed the parts of your bodies as slaves to impurity and to lawlessness for lawless- ness, so now present them as slaves to righteousness for sanctification. For when you were slaves of sin, you were free from righteousness. But what profit did you get then from the things of which you are now ashamed? For the end of those things is death. But now that you have been freed from sin and have be- come slaves of God, the benefit that you have leads to sanctification, and its end is eternal life. For the wages of sin is death, but the gift of God is eternal life in Christ Jesus our Lord.</p>
+						</i>
 					</td>
 				</tr>
 			</table>
+			<h3>Tweede lezing / Second reading</h3>
+			<p>blablabla</p>
 		</section>
+<!--
 		<section>
 			Page 2
 		</section>
@@ -149,5 +231,6 @@
 		<section>
 			Page 4
 		</section>
+-->
 	</body>
 </html>
