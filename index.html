@@ -9,6 +9,7 @@
 		html, body {
 			margin: 0;
 			padding: 0;
+			hanging-punctuation: allow-end;
 		}
 		
 		@page {
@@ -38,19 +39,19 @@
 			position: relative;
 		}
 		
-		h1 {
-			font-size: 6mm;
-			margin-top: 0;
-		}
-		h2, h3 {
-			font-size: 5mm;
-			font-variant: small-caps
-		}
 		h1, h2, h3 {
 			font-family: "Palatino", serif;
 			margin-top: var(--title-space);
 			margin-bottom: var(--paragraph-space);
 		}		
+		h2, h3 {
+			font-size: 5mm;
+			font-variant: small-caps
+		}
+		h1 {
+			font-size: 6mm;
+			margin-top: 0;
+		}
 
 		.center { text-align: center }
 		.right p { text-align-last: right }
@@ -67,6 +68,10 @@
 			text-align: justify;
 /*			text-align-last: justify;*/
 		}		
+		
+		.two-columns {
+			column-count: 2;
+		}
 				
 		ol {
 			list-style: none;
@@ -76,16 +81,15 @@
 			margin-top: var(--paragraph-space);
 		}
 		
-		.two-columns {
-			column-count: 2;
-		}
-		
-		li::before {
-			content: counter(li)".";
+		ol li::before, ol .counter {
   		display: block;
 			float: left;
 			width: var(--indentation);
   		margin-left: calc(0em - var(--indentation));
+		}
+		
+		ol.auto-count li::before {
+			content: counter(li)".";
 		}
 		
 		li {
@@ -155,7 +159,7 @@
 			background: #F0F0F0;
 			z-index: -2;
 			opacity: 0.2;
-			display: none;
+/*			display: none;*/
 		}
 		
 		section div.page-indicators div {
@@ -242,18 +246,26 @@
 			<h3>Openingslied - Entrance Hymn</h3>
 			<ol class="two-columns">
 				<li>
+					<span class="counter">1.</span>
 					Juicht voor de Heer, alle landen,<br>
 					Dient met blijdschap de Heer,<br>
 					Treedt onbezorgd voor zijn aanschijn.<br>
 					Waarlijk, de Heer is God.<br>
 				</li>
 				<li>
+					<span class="counter">R.</span>
+					<b>Alleluia, alleluia <br>
+					Alleluia, alleluia!</b>
+				</li>
+				<li>
+					<span class="counter">2.</span>
 					Juicht voor de Heer, alle landen,<br>
 					Dient met blijdschap de Heer,<br>
 					Treedt onbezorgd voor zijn aanschijn.<br>
 					Waarlijk, de Heer is God.<br>
 				</li>
 				<li>
+					<span class="counter">3.</span>
 					Juicht voor de Heer, alle landen,<br>
 					Dient met blijdschap de Heer,<br>
 					Treedt onbezorgd voor zijn aanschijn.<br>
@@ -387,7 +399,7 @@
 			</div>
 			
 			<h3>Offerande - Offertory Hymn</h3>
-			<ol>
+			<ol class="auto-count">
 				<li>
 					As we stand before the table<br>
 					where Christ offers Himself in our midst.<br> 
@@ -405,7 +417,46 @@
 					purify us bring Your life to all.
 				</li>
 			</ol>
+			
 			<h3>Communielied - Communion Hymn</h3>
+			<ol>
+				<li>
+					<span class="counter">R.</span>
+					Ik verhef U, mijn Koning en God. <br>
+					Heer, ik zegen voor eeuwig uw Naam. <br>
+					Mijn hart wil U prijzen dag aan dag. <br>
+					Ik loof uw Naam voor eeuwig en altijd! <br>
+				</li>
+				<li>
+					<span class="counter">1.</span>
+					Barmhartig en genadig is de Heer. <br>
+					Hij is vol liefde voor al wat bestaat. <br>
+					De Heer toont zijn goedheid aan ons, <br>
+					Zijn erbarming aan al wat er leeft. <br>
+				</li>
+				<li>
+					<span class="counter">R.</span>
+					I exalt You God my King,<br>
+					I will bless your name ever more,<br>
+					My heart and my soul sing your praise, <br>
+					Tell the world the glory of your name. <br>
+				</li>
+				<li>
+					<span class="counter">2.</span>
+					Praise the Lord, creation praise the Lord, <br>
+					May your people always bless your name, <br>
+					Praise the Lord give glory to your reign, <br>
+					May your wonders be praised here on earth. <br>
+				</li>
+				<li>
+					<span class="counter">3.</span>
+					Rechtvaardig is de Heer in wat Hij doet. <br>
+					Hij is nabij voor de mens die Hem roept. <br>
+					Hij steunt al wie struikelt en valt.<br>
+					De gebogenen richt Hij weer op.<br>
+				</li>
+			</ol>
+			
 		</section>
 	</body>
 </html>
