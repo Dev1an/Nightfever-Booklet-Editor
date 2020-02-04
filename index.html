@@ -66,8 +66,12 @@
 
 		p {
 			text-align: justify;
-/*			text-align-last: justify;*/
-		}		
+		}
+		
+		.splitted {
+			display: block;
+			text-align-last: justify;
+		}
 		
 		.two-columns {
 			column-count: 2;
@@ -191,9 +195,15 @@
 		let section;
 		window.addEventListener('load', setSection)
 		
+		function insertAutoPageBreaks() {
+			for (let page = 0; page < 3; page++) {
+				insertAutoPageBreak(page)
+			}
+		}
+		
 		function insertAutoPageBreak(page) {
 			const mm = getPixelsPerMillimeter()
-			const marge = (210 * page - 10) * mm
+			const marge = (210 * (page+1) - 10) * mm
 			for (const block of findOverflowNodes(marge)) {
 				if (block.nodeType === Node.TEXT_NODE) {
 					const textNode = splitText(block, marge)
@@ -206,9 +216,14 @@
 		
 		function splitText(node, marge) {
 			const range = document.createRange()
-			return node.splitText(
+			const secondHalf = node.splitText(
 				binarySearch(node.nodeValue.length, liesBeforeMarge)
 			)
+			const span = document.createElement('span')
+			node.parentNode.replaceChild(span, node)
+			span.appendChild(node)
+			span.className = 'splitted'
+			return secondHalf
 			
 			function liesBeforeMarge(letterIndex) {
 				range.setStart(node, letterIndex)
@@ -279,37 +294,6 @@
 		function getPixelsPerMillimeter() {
 			return section.clientWidth / 148
 		}
-		
-		function wordify() {
-			const mm = getPixelsPerMillimeter()
-			const bibleReading = document.querySelector('.bible-reading')
-			textNodesUnder(bibleReading).forEach(function(textNode) {
-				const parent = textNode.parentNode
-				const fragment = document.createDocumentFragment()
-				const words = textNode.textContent.split(/\s+/)
-				const wordSpans = []
-				words.forEach(function(word) {
-					const span = document.createElement('span')
-					span.innerHTML = word
-					wordSpans.push(span)
-					fragment.appendChild(span)
-					fragment.appendChild(document.createTextNode(' '))
-				})
-				parent.replaceChild(fragment, textNode)
-				
-				const targetOffset = 200 * mm
-				const barrier = wordSpans.find(function(span) {
-					console.log(sectionOffset(span, true)/mm)
-					return sectionOffset(span, true) > targetOffset
-				})
-				if (barrier && barrier.textContent.length > 0) {
-					const space = document.createElement('div')
-					barrier.parentNode.insertBefore(space, barrier)
-					space.style.height = (220 - (sectionOffset(space, false)/mm)) + 'mm'
-					console.log(barrier, space.style.height)
-				}
-			})
-		}
 				
 		function setSection() {
 			section = document.querySelector('section')
@@ -334,7 +318,7 @@
 	</script>
 	<body>
 		<div class="controls">
-			<button onclick="wordify()">wordify</button>
+			<button onclick="insertAutoPageBreaks()">Insert page break margins</button>
 		</div>
 		<section>
 			<div class="page-indicators">
