@@ -200,11 +200,16 @@
 			function smallestPartOf(blocks) {
 				for (const block of blocks) {
 					if (sectionOffset(block, true) > marge) {
-						
-						if (shouldSplit(block)) {
-							return smallestPartOf(block.childNodes)
+						if (isFlex(block)) {
+							return Array
+								.from(block.children)
+								.flatMap( column => smallestPartOf([column]) )
 						} else {
-							return block
+							if (shouldSplit(block)) {
+								return smallestPartOf(block.childNodes)
+							} else {
+								return [block]
+							}
 						}
 					}
 				}
@@ -216,9 +221,13 @@
 		}
 		
 		function mayPageBreak(block) {
-			if (block.classList && block.classList.contains('avoid-pagebreak'))
+			if (block.classList && (block.classList.contains('avoid-pagebreak') || block.classList.contains('two-columns')))
 				return false
 			return true
+		}
+		
+		function isFlex(block) {
+			return block.classList && block.classList.contains('flex')
 		}
 						
 		function getPixelsPerMillimeter() {
