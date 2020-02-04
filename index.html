@@ -191,8 +191,54 @@
 		let section;
 		window.addEventListener('load', setSection)
 		
-		function findOverflowNodes(page) {
-			const marge = (210 * page - 10) * getPixelsPerMillimeter()
+		function insertAutoPageBreak(page) {
+			const mm = getPixelsPerMillimeter()
+			const marge = (210 * page - 10) * mm
+			for (const block of findOverflowNodes(marge)) {
+				if (block.nodeType === Node.TEXT_NODE) {
+					const textNode = splitText(block, marge)
+					insertPageBreakBefore(textNode, marge, mm)
+				} else {
+					insertPageBreakBefore(block, marge, mm)
+				}
+			}
+		}
+		
+		function splitText(node, marge) {
+			const range = document.createRange()
+			return node.splitText(
+				binarySearch(node.nodeValue.length, liesBeforeMarge)
+			)
+			
+			function liesBeforeMarge(letterIndex) {
+				range.setStart(node, letterIndex)
+				range.setEnd(node, letterIndex+1)
+				return sectionOffset(range, true) > marge
+			}
+		}
+		
+		/*
+		 * Return i such that !pred(i - 1) && pred(i) && 0 <= i <= length.
+		 */
+		function binarySearch(length, pred) {
+			let lo = -1, hi = length;
+			while (1 + lo < hi) {
+				const mi = lo + ((hi - lo) >> 1);
+				if (pred(mi)) hi = mi;
+				else lo = mi;
+			}
+			return hi;
+		}
+		
+		function insertPageBreakBefore(block, marge, mm) {
+			const space = document.createElement('div')
+			block.parentNode.insertBefore(space, block)
+			const offsetTop = sectionOffset(space, false)
+			const correction = (marge - offsetTop)/mm
+			space.style.height = (20 + correction) + 'mm'
+		}
+		
+		function findOverflowNodes(marge) {
 			return smallestPartOf(
 				document.querySelectorAll('section > *:not(.page-indicators)').values()
 			)
@@ -267,7 +313,6 @@
 				
 		function setSection() {
 			section = document.querySelector('section')
-			console.log(section)
 		}
 		
 		function sectionOffset(element, includeHeight) {
@@ -278,7 +323,7 @@
 			}
 			const sectionY = section.getBoundingClientRect().y
 			const elementRect = element.getBoundingClientRect()
-			return elementRect.y - sectionY + (includeHeight===true ? elementRect.height : 0);
+			return (includeHeight===true ? elementRect.bottom : elementRect.y) - sectionY;
 		}
 
 		function textNodesUnder(el){
@@ -489,35 +534,35 @@
 			
 			<h3>Communielied - Communion Hymn</h3>
 			<ol>
-				<li>
+				<li class="avoid-pagebreak">
 					<span class="counter">R.</span>
 					Ik verhef U, mijn Koning en God. <br>
 					Heer, ik zegen voor eeuwig uw Naam. <br>
 					Mijn hart wil U prijzen dag aan dag. <br>
 					Ik loof uw Naam voor eeuwig en altijd! <br>
 				</li>
-				<li>
+				<li class="avoid-pagebreak">
 					<span class="counter">1.</span>
 					Barmhartig en genadig is de Heer. <br>
 					Hij is vol liefde voor al wat bestaat. <br>
 					De Heer toont zijn goedheid aan ons, <br>
 					Zijn erbarming aan al wat er leeft. <br>
 				</li>
-				<li>
+				<li class="avoid-pagebreak">
 					<span class="counter">R.</span>
 					I exalt You God my King,<br>
 					I will bless your name ever more,<br>
 					My heart and my soul sing your praise, <br>
 					Tell the world the glory of your name. <br>
 				</li>
-				<li>
+				<li class="avoid-pagebreak">
 					<span class="counter">2.</span>
 					Praise the Lord, creation praise the Lord, <br>
 					May your people always bless your name, <br>
 					Praise the Lord give glory to your reign, <br>
 					May your wonders be praised here on earth. <br>
 				</li>
-				<li>
+				<li class="avoid-pagebreak">
 					<span class="counter">3.</span>
 					Rechtvaardig is de Heer in wat Hij doet. <br>
 					Hij is nabij voor de mens die Hem roept. <br>
