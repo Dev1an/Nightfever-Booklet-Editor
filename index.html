@@ -178,15 +178,55 @@
 			z-index: -1;
 		}
 		
+		.avoid-pagebreak {
+			background: rgba(255, 255, 0, 0.2);
+		}
+		
 		table {
 			border-spacing: 0;
 			margin-top: var(--paragraph-space)
 		}
-		
 	</style>
 	<script>
+		let section;
+		window.addEventListener('load', setSection)
+		
+		function findOverflowNodes(page) {
+			const marge = (210 * page - 10) * getPixelsPerMillimeter()
+			return smallestPartOf(
+				document.querySelectorAll('section > *:not(.page-indicators)').values()
+			)
+			
+			function smallestPartOf(blocks) {
+				for (const block of blocks) {
+					if (sectionOffset(block, true) > marge) {
+						
+						if (shouldSplit(block)) {
+							return smallestPartOf(block.childNodes)
+						} else {
+							return block
+						}
+					}
+				}
+			}
+			
+			function shouldSplit(block) {
+				return mayPageBreak(block) && block.hasChildNodes()
+			}
+		}
+		
+		function mayPageBreak(block) {
+			if (block.classList && block.classList.contains('avoid-pagebreak'))
+				return false
+			return true
+		}
+						
+		function getPixelsPerMillimeter() {
+			return section.clientWidth / 148
+		}
+		
 		function wordify() {
-			const mm = document.querySelector('section').clientWidth / 148
+			const mm = getPixelsPerMillimeter()
 			const bibleReading = document.querySelector('.bible-reading')
 			textNodesUnder(bibleReading).forEach(function(textNode) {
 				const parent = textNode.parentNode
@@ -215,13 +255,23 @@
 				}
 			})
 		}
-		
-		function sectionOffset(element, includeHeight) {
-			const sectionY = document.querySelector('section').getBoundingClientRect().y
-			const elementY = element.getBoundingClientRect().y
-			return elementY - sectionY + (includeHeight ? element.getBoundingClientRect().height : 0);
+				
+		function setSection() {
+			section = document.querySelector('section')
+			console.log(section)
 		}
 		
+		function sectionOffset(element, includeHeight) {
+			if (element.nodeType === Node.TEXT_NODE) {
+				const range = document.createRange()
+				range.selectNode(element)
+				element = range
+			}
+			const sectionY = section.getBoundingClientRect().y
+			const elementRect = element.getBoundingClientRect()
+			return elementRect.y - sectionY + (includeHeight===true ? elementRect.height : 0);
+		}
+
 		function textNodesUnder(el){
 			var n, a=[], walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false);
 			while(n=walk.nextNode()) a.push(n);
@@ -239,7 +289,7 @@
 				<div></div>
 				<div></div>
 			</div>
-			
+
 			<h1 class="center">Supplementary sheet - Bijgevoegd blad</h1>
 			<h2 class="center">24 Oktober 2019</h2>
 		
@@ -273,14 +323,16 @@
 				</li>
 			</ol>
 			
-			<div class="flex title">
-				<div><h1>Dienst van het woord</h1></div>
-				<div><h1>Liturgy of the Word</h1></div>
-			</div>
-			<div class="flex">
-				<div><h3>Eerste lezing</h3></div>
-				<div><span class="comment">Rom. 6, 19-23</span></div>
-				<div><h3>First reading</h3></div>
+			<div class="avoid-pagebreak">
+				<div class="flex title">
+					<div><h1>Dienst van het woord</h1></div>
+					<div><h1>Liturgy of the Word</h1></div>
+				</div>
+				<div class="flex">
+					<div><h3>Eerste lezing</h3></div>
+					<div><span class="comment">Rom. 6, 19-23</span></div>
+					<div><h3>First reading</h3></div>
+				</div>
 			</div>
 			<div class="flex">
 				<div class="equal">
@@ -290,7 +342,7 @@
 					<p>
 						Broeders en zusters, sprekend tot zwakke mensen druk ik mij erg menselijk uit. Zoals gij eertijds uw ledematen in dienst hebt gesteld van onreinheid en steeds grotere bandeloosheid, zo moet gij ze nu in dienst stellen van de gerechtigheid tot uw heiliging. Toen gij slaven waart van de zonde, stond gij vrij ten opzichte van de gerechtigheid. Welk voordeel had gij toen van daden waarover gij u thans schaamt? Want het einde daarvan is de dood. Maar nu, bevrijd van de zonde en dienstknechten geworden van God, oogst gij heiligheid en tenslotte eeuwig leven. Want het loon van de zonde is de dood, maar de gave van God is het eeuwige leven in Christus Jezus, onze Heer.
 					</p>
-					<p>
+					<p class="avoid-pagebreak">
 						Zo spreekt de Heer.<br>
 						<b>Wij danken God.</b>
 					</p>
@@ -298,7 +350,7 @@
 				<div class="equal right">
 					<p>From a letter of the apostle Paul to the Romans.</p>
 					<p>Brothers and sisters: I am speaking in human terms because of the weakness of your nature. For just as you present- ed the parts of your bodies as slaves to impurity and to lawlessness for lawless- ness, so now present them as slaves to righteousness for sanctification. For when you were slaves of sin, you were free from righteousness. But what profit did you get then from the things of which you are now ashamed? For the end of those things is death. But now that you have been freed from sin and have be- come slaves of God, the benefit that you have leads to sanctification, and its end is eternal life. For the wages of sin is death, but the gift of God is eternal life in Christ Jesus our Lord.</p>
-					<p>
+					<p class="avoid-pagebreak">
 						The Word of the Lord.<br>
 						<b>Thanks be to God. </b>
 					</p>
@@ -342,59 +394,67 @@
 				</div>
 			</div>
 			
-			<div class="flex title">
-				<div><h3>Alleluia</h3></div>
-				<div><span class="comment">Ps. 119/118, 88</span></div>
-			</div>
-			<span class="comment">Rechtstaan a.u.b. - Please stand</span>
-			<div class="flex">
-				<div><p>Wees mij barmhartig en laat mij leven, Heer, dan blijf ik aan wat Gij verordent trouw.</p></div>
-				<div class="right"><p>I consider all things so much rubbish that I may gain Christ and be found in him.</p></div>
+			<div class="avoid-pagebreak">
+				<div class="flex title">
+					<div><h3>Alleluia</h3></div>
+					<div><span class="comment">Ps. 119/118, 88</span></div>
+				</div>
+				<span class="comment">Rechtstaan a.u.b. - Please stand</span>
+				<div class="flex">
+					<div><p>Wees mij barmhartig en laat mij leven, Heer, dan blijf ik aan wat Gij verordent trouw.</p></div>
+					<div class="right"><p>I consider all things so much rubbish that I may gain Christ and be found in him.</p></div>
+				</div>
 			</div>
 			
-			<div class="flex title">
-				<div><h3>Evangelie - Gospel</h3></div>
-				<div><span class="comment">Lc. 12, 49-53</span></div>
-			</div>
-			<table>
-				<tr>
-					<td>De Heer zij met u.</td>
-					<td><span class="comment">of</span></td>
-					<td>De Heer zal bij u zijn.</td>
-				</tr>
-				<tr>
-					<td><b>En met uw geest.</b></td>
-					<td><span class="comment">of</span></td>
-					<td><b>De Heer zal u bewaren.</b></td>
-				</tr>
-			</table>
+			<div class="avoid-pagebreak">
+				<div class="flex title">
+					<div><h3>Evangelie - Gospel</h3></div>
+					<div><span class="comment">Lc. 12, 49-53</span></div>
+				</div>
+				<table>
+					<tr>
+						<td>De Heer zij met u.</td>
+						<td><span class="comment">of</span></td>
+						<td>De Heer zal bij u zijn.</td>
+					</tr>
+					<tr>
+						<td><b>En met uw geest.</b></td>
+						<td><span class="comment">of</span></td>
+						<td><b>De Heer zal u bewaren.</b></td>
+					</tr>
+				</table>
 
-			<p>
-				Uit het heilig evangelie van onze Heer Jezus Christus volgens Lucas.<br>
-				<b>Lof zij U, Christus.</b>
-			</p>
+				<p>
+					Uit het heilig evangelie van onze Heer Jezus Christus volgens Lucas.<br>
+					<b>Lof zij U, Christus.</b>
+				</p>
+			</div>
 			<div class="flex">
 				<div class="equal">
 					<p>
 						In die tijd zei Jezus tot zijn leerlingen: “Vuur ben Ik op aarde komen brengen, en hoe verlang Ik dat het reeds oplaait! Ik moet een doopsel ondergaan, en hoe beklemd voel Ik Mij, totdat het volbracht is. Meent gij dat Ik op aarde vrede ben komen brengen? Neen, zeg Ik u, juist verdeeldheid. Want van nu af zullen er vijf in één huis verdeeld zijn; drie zullen er staan tegenover twee en twee tegenover drie; de vader tegenover de zoon en de zoon tegenover de vader; de moeder tegenover de dochter en de dochter tegenover de moeder, de schoonmoeder tegenover haar schoondochter en de schoondochter tegenover de schoonmoeder.”
 					</p>
-					<p>
-						Tot zover het Evangelie.<br>
-						<b>Wij danken God.</b>
-					</p>
-					<p class="comment">
-						Zitten a.u.b. De Mis gaat verder in boekje p3
-					</p>
+					<div class="avoid-pagebreak">
+						<p>
+							Tot zover het Evangelie.<br>
+							<b>Wij danken God.</b>
+						</p>
+						<p class="comment">
+							Zitten a.u.b. De Mis gaat verder in boekje p3
+						</p>
+					</div>
 				</div>
 				<div class="equal right">
 					<p>Jesus said to his disciples: “I have come to set the earth on fire, and how I wish it were already blazing! There is a baptism with which I must be baptized, and how great is my anguish until it is accomplished! Do you think that I have come to establish peace on the earth? No, I tell you, but rather division. From now on a household of five will be divided, three against two and two against three; a father will be divided against his son and a son against his father, a mother against her daughter and a daughter against her mother, a mother-in-law against her daughter-in- law and a daughter-in-law against her mother-in-law.”</p>
-					<p>
-						The Gospel of the Lord.<br>
-						<b>Thanks be to God. </b>
-					</p>
-					<p class="comment">
-						Please sit. The Mass continues in booklet p3
-					</p>
+					<div class="avoid-pagebreak">
+						<p>
+							The Gospel of the Lord.<br>
+							<b>Thanks be to God. </b>
+						</p>
+						<p class="comment">
+							Please sit. The Mass continues in booklet p3
+						</p>
+					</div>
 				</div>
 			</div>
 			
