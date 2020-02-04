@@ -2,12 +2,13 @@
 	<style>
 		html {
 			font-family: "Optima", serif;
+			--title-space: 4mm;
+			--paragraph-space: 2mm;
 		}
 		
 		html, body {
 			margin: 0;
 			padding: 0;
-			--paragraph-space: 2mm;
 		}
 		
 		@page {
@@ -47,6 +48,7 @@
 		}
 		h1, h2, h3 {
 			font-family: "Palatino", serif;
+			margin-top: var(--title-space);
 			margin-bottom: var(--paragraph-space);
 		}		
 
@@ -99,7 +101,7 @@
 		}
 		
 		.flex.title {
-			margin-top: 4mm;
+			margin-top: var(--title-space);
 		}
 		
 		.flex {
@@ -124,7 +126,7 @@
 		
 		.flex .equal { flex: 1 }
 		
-		.reference {
+		.comment {
 			font-size: 3mm;
 			color: gray;
 		}
@@ -136,12 +138,6 @@
 		
 		.response::before {
 			content: 'R. ';
-			color: gray;
-		}
-		
-/*	please stand, sit, kneel, etc. */
-		.physical-instruction {
-			font-size: 3mm;
 			color: gray;
 		}
 						
@@ -271,7 +267,7 @@
 			</div>
 			<div class="flex">
 				<div><h3>Eerste lezing</h3></div>
-				<div><span class="reference">Rom. 6, 19-23</span></div>
+				<div><span class="comment">Rom. 6, 19-23</span></div>
 				<div><h3>First reading</h3></div>
 			</div>
 			<div class="flex">
@@ -336,9 +332,9 @@
 			
 			<div class="flex title">
 				<div><h3>Alleluia</h3></div>
-				<div><span class="reference">Ps. 119/118, 88</span></div>
+				<div><span class="comment">Ps. 119/118, 88</span></div>
 			</div>
-			<span class="physical-instruction">Rechtstaan a.u.b. - Please stand</span>
+			<span class="comment">Rechtstaan a.u.b. - Please stand</span>
 			<div class="flex">
 				<div><p>Wees mij barmhartig en laat mij leven, Heer, dan blijf ik aan wat Gij verordent trouw.</p></div>
 				<div class="right"><p>I consider all things so much rubbish that I may gain Christ and be found in him.</p></div>
@@ -346,17 +342,17 @@
 			
 			<div class="flex title">
 				<div><h3>Evangelie - Gospel</h3></div>
-				<div><span class="reference">Lc. 12, 49-53</span></div>
+				<div><span class="comment">Lc. 12, 49-53</span></div>
 			</div>
 			<table>
 				<tr>
 					<td>De Heer zij met u.</td>
-					<td><span class="reference">of</span></td>
+					<td><span class="comment">of</span></td>
 					<td>De Heer zal bij u zijn.</td>
 				</tr>
 				<tr>
 					<td><b>En met uw geest.</b></td>
-					<td><span class="reference">of</span></td>
+					<td><span class="comment">of</span></td>
 					<td><b>De Heer zal u bewaren.</b></td>
 				</tr>
 			</table>
@@ -374,6 +370,9 @@
 						Tot zover het Evangelie.<br>
 						<b>Wij danken God.</b>
 					</p>
+					<p class="comment">
+						Zitten a.u.b. De Mis gaat verder in boekje p3
+					</p>
 				</div>
 				<div class="equal right">
 					<p>Jesus said to his disciples: “I have come to set the earth on fire, and how I wish it were already blazing! There is a baptism with which I must be baptized, and how great is my anguish until it is accomplished! Do you think that I have come to establish peace on the earth? No, I tell you, but rather division. From now on a household of five will be divided, three against two and two against three; a father will be divided against his son and a son against his father, a mother against her daughter and a daughter against her mother, a mother-in-law against her daughter-in- law and a daughter-in-law against her mother-in-law.”</p>
@@ -381,9 +380,32 @@
 						The Gospel of the Lord.<br>
 						<b>Thanks be to God. </b>
 					</p>
+					<p class="comment">
+						Please sit. The Mass continues in booklet p3
+					</p>
 				</div>
 			</div>
-
+			
+			<h3>Offerande - Offertory Hymn</h3>
+			<ol>
+				<li>
+					As we stand before the table<br>
+					where Christ offers Himself in our midst.<br> 
+					All we are we offer with Him as He changes our being to His own.
+				</li>
+				<li>
+					Welk een ruil waarin wij delen: <br>
+					Christus neemt onze zondigheid aan, <br>
+					geeft zichzelf als brood voor velen, <br>
+					deelt met ons zijn goddelijk bestaan.
+				</li>
+				<li>
+					Glory Father to the love which sent your Son Jesus Christ to our world. <br>
+					By the power of Your Spirit, <br>
+					purify us bring Your life to all.
+				</li>
+			</ol>
+			<h3>Communielied - Communion Hymn</h3>
 		</section>
 	</body>
 </html>
