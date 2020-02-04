@@ -204,12 +204,20 @@
 		function insertAutoPageBreak(page) {
 			const mm = getPixelsPerMillimeter()
 			const marge = (210 * (page+1) - 10) * mm
-			for (const block of findOverflowNodes(marge)) {
-				if (block.nodeType === Node.TEXT_NODE) {
-					const textNode = splitText(block, marge)
-					insertPageBreakBefore(textNode, marge, mm)
-				} else {
-					insertPageBreakBefore(block, marge, mm)
+			
+			const manualPageBreak = document.querySelector('.prefer-pagebreak')
+			console.log(manualPageBreak, manualPageBreak ? sectionOffset(manualPageBreak) : undefined, marge)
+			if (manualPageBreak && sectionOffset(manualPageBreak) < marge) {
+				insertPageBreakBefore(manualPageBreak, marge, mm)
+				manualPageBreak.parentNode.removeChild(manualPageBreak)
+			} else {
+				for (const block of findOverflowNodes(marge)) {
+					if (block.nodeType === Node.TEXT_NODE) {
+						const textNode = splitText(block, marge)
+						insertPageBreakBefore(textNode, marge, mm)
+					} else {
+						insertPageBreakBefore(block, marge, mm)
+					}
 				}
 			}
 		}
@@ -431,6 +439,7 @@
 					</p>
 				</div>
 			</div>
+			<div class="prefer-pagebreak"></div>
 			
 			<div class="avoid-pagebreak">
 				<div class="flex title">
@@ -495,6 +504,8 @@
 					</div>
 				</div>
 			</div>
+			
+			<div class="prefer-pagebreak"></div>
 			
 			<h3>Offerande - Offertory Hymn</h3>
 			<ol class="auto-count">
