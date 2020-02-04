@@ -30,10 +30,10 @@
 		
 		section {
 			width: 128mm;
-			min-height: 189.5mm;
+/*		4 * page height - (padding top&bottom)	*/
+			height: calc(4 * 210mm - 21mm);
 			padding: 10mm;
 			overflow: hidden;
-			background: #F0F0F0;
 			position: relative;
 		}
 		
@@ -51,22 +51,30 @@
 		}		
 
 		.center { text-align: center }
+		.right p { text-align-last: right }
+		.italic {
+			font-style: italic
+		}
 		
-		p, table p, li {
+		p, li {
 			font-size: 3.6mm;
 			line-height: 1.2;
 		}
 
 		p {
 			text-align: justify;
+/*			text-align-last: justify;*/
 		}		
 				
 		ol {
 			list-style: none;
 			counter-reset: li;
-			--indentation: 1.2em;
+			--indentation: 5mm;
 			padding-left: var(--indentation);
 			margin-top: var(--paragraph-space);
+		}
+		
+		.two-columns {
 			column-count: 2;
 		}
 		
@@ -90,23 +98,27 @@
 			margin-bottom: var(--paragraph-space);
 		}
 		
-/*	Table styling	*/
-		
-		table {
-			border-spacing: 0;
+		.flex {
+			display: flex;
+			justify-content: space-between;
 		}
 		
-		td {
-			vertical-align: top;
+		.flex div {
 			padding: 0 2mm;
+			align-self: baseline;
+		}
+		.flex div:first-of-type { padding-left: 0 }
+		.flex div:last-of-type { padding-right: 0 }
+		
+		.flex h3 {
+			margin: 0;
 		}
 		
-		td:first-of-type {
-			padding-left: 0;
-		}
+		.flex .equal { flex: 1 }
 		
-		td:last-of-type {
-			padding-right: 0;
+		.reference {
+			font-size: 3mm;
+			color: gray;
 		}
 		
 		div.controls {
@@ -114,13 +126,40 @@
 			left: 155mm;
 		}
 		
-		div.page-indicator {
-			height: 1px;
-			background: red;
+		section div.page-indicators {
 			position: absolute;
-			top: 210mm;
+			top: 0;
+			bottom: 0;
 			left: 0;
 			right: 0;
+			background: #F0F0F0;
+			z-index: -2;
+			opacity: 0.2;
+			display: none;
+		}
+		
+		section div.page-indicators div {
+			margin-top: calc(210mm - 1px);
+			height: 1px;
+			background: red;
+		}
+		
+		section div.page-indicators div::before {
+			transform: translate(0, -10mm);
+			height: 20mm;
+			background: #BBB;
+			content: ' ';
+			display: block;
+			position: relative;
+			z-index: -1;
+		}
+		
+		.response {
+			font-weight: bold;
+		}
+		
+		.response::before {
+			content: 'R.';
 		}
 						
 	</style>
@@ -144,6 +183,7 @@
 				
 				const targetOffset = 200 * mm
 				const barrier = wordSpans.find(function(span) {
+					console.log(sectionOffset(span, true)/mm)
 					return sectionOffset(span, true) > targetOffset
 				})
 				if (barrier && barrier.textContent.length > 0) {
@@ -172,12 +212,18 @@
 			<button onclick="wordify()">wordify</button>
 		</div>
 		<section>
-			<div class="page-indicator"></div>
+			<div class="page-indicators">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+			
 			<h1 class="center">Supplementary sheet - Bijgevoegd blad</h1>
 			<h2 class="center">24 Oktober 2019</h2>
 		
 			<h3>Openingslied - Entrance Hymn</h3>
-			<ol>
+			<ol class="two-columns">
 				<li>
 					Juicht voor de Heer, alle landen,<br>
 					Dient met blijdschap de Heer,<br>
@@ -198,39 +244,75 @@
 				</li>
 			</ol>
 			
-			<h1>Dienst van het woord - Liturgy of the Word</h1>
-			<h3>Eerste lezing / First reading</h3>
-			<table class="bible-reading">
-				<tr>
-					<td width=50%>
-						<p>
-							Uit de brief van de heilige apostel Paulus aan de christenen van Rome.
-						</p>
-						<p>
-							Broeders en zusters, sprekend tot zwakke mensen druk ik mij erg menselijk uit. Zoals gij eertijds uw ledematen in dienst hebt gesteld van onreinheid en steeds grotere bandeloosheid, zo moet gij ze nu in dienst stellen van de gerechtigheid tot uw heiliging. Toen gij slaven waart van de zonde, stond gij vrij ten opzichte van de gerechtigheid. Welk voordeel had gij toen van daden waarover gij u thans schaamt? Want het einde daarvan is de dood. Maar nu, bevrijd van de zonde en dienstknechten geworden van God, oogst gij heiligheid en tenslotte eeuwig leven. Want het loon van de zonde is de dood, maar de gave van God is het eeuwige leven in Christus Jezus, onze Heer.
-						</p>
-					</td>
-					<td width=50%>
-						<i>
-						<p>From a letter of the apostle Paul to the Romans.</p>
-						<p>Brothers and sisters: I am speaking in human terms because of the weakness of your nature.<br>For just as you present- ed the parts of your bodies as slaves to impurity and to lawlessness for lawless- ness, so now present them as slaves to righteousness for sanctification. For when you were slaves of sin, you were free from righteousness. But what profit did you get then from the things of which you are now ashamed? For the end of those things is death. But now that you have been freed from sin and have be- come slaves of God, the benefit that you have leads to sanctification, and its end is eternal life. For the wages of sin is death, but the gift of God is eternal life in Christ Jesus our Lord.</p>
-						</i>
-					</td>
-				</tr>
-			</table>
-			<h3>Tweede lezing / Second reading</h3>
-			<p>blablabla</p>
+			<div class="flex">
+				<div><h1>Dienst van het woord</h1></div>
+				<div><h1>Liturgy of the Word</h1></div>
+			</div>
+			<div class="flex">
+				<div><h3>Eerste lezing</h3></div>
+				<div><span class="reference">Rom. 6, 19-23</span></div>
+				<div><h3>First reading</h3></div>
+			</div>
+			<div class="flex">
+				<div class="equal">
+					<p>
+						Uit de brief van de heilige apostel Paulus aan de christenen van Rome.
+					</p>
+					<p>
+						Broeders en zusters, sprekend tot zwakke mensen druk ik mij erg menselijk uit. Zoals gij eertijds uw ledematen in dienst hebt gesteld van onreinheid en steeds grotere bandeloosheid, zo moet gij ze nu in dienst stellen van de gerechtigheid tot uw heiliging. Toen gij slaven waart van de zonde, stond gij vrij ten opzichte van de gerechtigheid. Welk voordeel had gij toen van daden waarover gij u thans schaamt? Want het einde daarvan is de dood. Maar nu, bevrijd van de zonde en dienstknechten geworden van God, oogst gij heiligheid en tenslotte eeuwig leven. Want het loon van de zonde is de dood, maar de gave van God is het eeuwige leven in Christus Jezus, onze Heer.
+					</p>
+					<p>
+						Zo spreekt de Heer.<br>
+						<b>Wij danken God.</b>
+					</p>
+				</div>
+				<div class="equal right">
+					<p>From a letter of the apostle Paul to the Romans.</p>
+					<p>Brothers and sisters: I am speaking in human terms because of the weakness of your nature. For just as you present- ed the parts of your bodies as slaves to impurity and to lawlessness for lawless- ness, so now present them as slaves to righteousness for sanctification. For when you were slaves of sin, you were free from righteousness. But what profit did you get then from the things of which you are now ashamed? For the end of those things is death. But now that you have been freed from sin and have be- come slaves of God, the benefit that you have leads to sanctification, and its end is eternal life. For the wages of sin is death, but the gift of God is eternal life in Christ Jesus our Lord.</p>
+					<p>
+						The Word of the Lord.<br>
+						<b>Thanks be to God. </b>
+					</p>
+				</div>
+			</div>
+			<h3>Psalm</h3>
+			<div class="flex">
+				<div class="equal">
+					<p class="response">
+						Gelukkig is de man die op de Heer zijn hoop stelt.
+					</p>
+					<p>
+						Gelukkig de man die weigert te doen,
+						wat goddelozen hem raden;
+						die niet de wegen der zondaars gaat,
+						niet zit te midden der spotters;
+						maar die zijn geluk vindt in ‘s Heren wet, haar dag en nacht overweegt.
+					</p>
+					<p>
+						Hij is als een boom, aan het water geplant,
+						die vruchten draagt op zijn tijd;
+						des zomers verdorren zijn bladeren niet,
+						maar al wat hij doet brengt hem voorspoed. 
+					</p>
+					<p>
+						De goddelozen vergaat het zo niet: de wind blaast hen weg als kaf. De Heer immers let op de weg der gerechten, de weg van de zondaars loopt dood.
+					</p>
+				</div>
+				<div class="equal right">
+					<p class="response">
+						Blessed are they who hope in the Lord.
+					</p>
+					<p>
+						Blessed the man who follows not the counsel of the wicked Nor walks in the way of sinners, nor sits in the company of the insolent, But delights in the law of the LORD and meditates on his law day and night.
+					</p>
+					<p>
+						He is like a tree planted near running water, That yields its fruit in due sea- son, and whose leaves never fade. Whatever he does, prospers.<br><br>
+					</p>
+					<p>
+						Not so the wicked, not so; they are like chaff which the wind drives away. For the LORD watches over the way of the just, but the way of the wicked vanishes.
+					</p>
+				</div>
+			</div>
 		</section>
-<!--
-		<section>
-			Page 2
-		</section>
-		<section>
-			Page 3
-		</section>
-		<section>
-			Page 4
-		</section>
--->
 	</body>
 </html>
