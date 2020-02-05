@@ -86,19 +86,26 @@
 			margin-top: var(--paragraph-space);
 		}
 		
-		ol li::before, ol .counter {
+		ol li::before {
   		display: block;
 			float: left;
 			width: var(--indentation);
   		margin-left: calc(0em - var(--indentation));
 		}
 		
-		ol.auto-count li::before {
+		ol li::before {
 			content: counter(li)".";
 		}
 		
-		li {
+		ol li.refrain::before {
+			content: 'R.';
+		}
+		
+		ol li:not(.refrain) {
 			counter-increment: li;
+		}
+		
+		li {
 			break-inside: avoid-column;
 			margin-right: calc(var(--indentation)/2);
 			padding-bottom: var(--paragraph-space)
@@ -348,26 +355,22 @@
 			<h3>Openingslied - Entrance Hymn</h3>
 			<ol class="two-columns">
 				<li>
-					<span class="counter">1.</span>
 					Juicht voor de Heer, alle landen,<br>
 					Dient met blijdschap de Heer,<br>
 					Treedt onbezorgd voor zijn aanschijn.<br>
 					Waarlijk, de Heer is God.<br>
 				</li>
-				<li>
-					<span class="counter">R.</span>
+				<li class="refrain">
 					<b>Alleluia, alleluia <br>
 					Alleluia, alleluia!</b>
 				</li>
 				<li>
-					<span class="counter">2.</span>
 					Juicht voor de Heer, alle landen,<br>
 					Dient met blijdschap de Heer,<br>
 					Treedt onbezorgd voor zijn aanschijn.<br>
 					Waarlijk, de Heer is God.<br>
 				</li>
 				<li>
-					<span class="counter">3.</span>
 					Juicht voor de Heer, alle landen,<br>
 					Dient met blijdschap de Heer,<br>
 					Treedt onbezorgd voor zijn aanschijn.<br>
@@ -514,7 +517,7 @@
 			<div class="prefer-pagebreak"></div>
 			
 			<h3>Offerande - Offertory Hymn</h3>
-			<ol class="auto-count">
+			<ol>
 				<li>
 					As we stand before the table<br>
 					where Christ offers Himself in our midst.<br> 
@@ -535,36 +538,31 @@
 			
 			<h3>Communielied - Communion Hymn</h3>
 			<ol>
-				<li class="avoid-pagebreak">
-					<span class="counter">R.</span>
+				<li class="avoid-pagebreak refrain">
 					Ik verhef U, mijn Koning en God. <br>
 					Heer, ik zegen voor eeuwig uw Naam. <br>
 					Mijn hart wil U prijzen dag aan dag. <br>
 					Ik loof uw Naam voor eeuwig en altijd! <br>
 				</li>
 				<li class="avoid-pagebreak">
-					<span class="counter">1.</span>
 					Barmhartig en genadig is de Heer. <br>
 					Hij is vol liefde voor al wat bestaat. <br>
 					De Heer toont zijn goedheid aan ons, <br>
 					Zijn erbarming aan al wat er leeft. <br>
 				</li>
-				<li class="avoid-pagebreak">
-					<span class="counter">R.</span>
+				<li class="avoid-pagebreak refrain">
 					I exalt You God my King,<br>
 					I will bless your name ever more,<br>
 					My heart and my soul sing your praise, <br>
 					Tell the world the glory of your name. <br>
 				</li>
 				<li class="avoid-pagebreak">
-					<span class="counter">2.</span>
 					Praise the Lord, creation praise the Lord, <br>
 					May your people always bless your name, <br>
 					Praise the Lord give glory to your reign, <br>
 					May your wonders be praised here on earth. <br>
 				</li>
 				<li class="avoid-pagebreak">
-					<span class="counter">3.</span>
 					Rechtvaardig is de Heer in wat Hij doet. <br>
 					Hij is nabij voor de mens die Hem roept. <br>
 					Hij steunt al wie struikelt en valt.<br>
