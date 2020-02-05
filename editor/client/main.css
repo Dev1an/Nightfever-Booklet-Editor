@@ -1,0 +1,202 @@
+html {
+    font-family: "Optima", serif;
+    --title-space: 4mm;
+    --paragraph-space: 2mm;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    hanging-punctuation: allow-end;
+}
+
+@page {
+    margin: 0;
+    padding: 0;
+}
+
+@media screen {
+    section {
+        margin-top: 2mm;
+        box-shadow: 0 0px 10px gray;
+    }
+}
+
+@media print {
+    div.controls {
+        display: none;
+    }
+}
+
+section {
+    width: 128mm;
+    /*		4 * page height - (padding top&bottom)	*/
+    height: calc(4 * 210mm - 21mm);
+    padding: 10mm;
+    overflow: hidden;
+    position: relative;
+}
+
+h1, h2, h3 {
+    font-family: "Palatino", serif;
+    margin-top: var(--title-space);
+    margin-bottom: var(--paragraph-space);
+}
+h2, h3 {
+    font-size: 5mm;
+    font-variant: small-caps
+}
+h1 {
+    font-size: 6mm;
+    margin-top: 0;
+}
+
+.center { text-align: center }
+.right p { text-align-last: right }
+.italic {
+    font-style: italic
+}
+
+p, li, td {
+    font-size: 3.6mm;
+    line-height: 1.2;
+}
+
+p {
+    text-align: justify;
+}
+
+.splitted {
+    display: block;
+    text-align-last: justify;
+}
+
+.two-columns {
+    column-count: 2;
+}
+
+ol {
+    list-style: none;
+    counter-reset: li;
+    --indentation: 5mm;
+    padding-left: var(--indentation);
+    margin-top: var(--paragraph-space);
+}
+
+ol li::before {
+    display: block;
+    float: left;
+    width: var(--indentation);
+    margin-left: calc(0em - var(--indentation));
+}
+
+ol li::before {
+    content: counter(li)".";
+}
+
+ol li.refrain::before {
+    content: 'R.';
+}
+
+ol li:not(.refrain) {
+    counter-increment: li;
+}
+
+li {
+    break-inside: avoid-column;
+    margin-right: calc(var(--indentation)/2);
+    padding-bottom: var(--paragraph-space)
+}
+
+p {
+    margin-top: var(--paragraph-space);
+    margin-bottom: var(--paragraph-space);
+}
+
+.flex.title {
+    margin-top: var(--title-space);
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex div, td {
+    padding: 0 2mm;
+    align-self: baseline;
+}
+.flex div:first-of-type, td:first-of-type {
+    padding-left: 0
+}
+.flex div:last-of-type, td:last-of-type {
+    padding-right: 0
+}
+
+.flex h3 {
+    margin: 0;
+}
+
+.flex .equal { flex: 1 }
+
+.comment {
+    font-size: 3mm;
+    color: gray;
+}
+
+.response {
+    font-weight: bold;
+    position: relative;
+}
+
+.response::before {
+    content: 'R. ';
+    color: gray;
+}
+
+div.controls {
+    position: absolute;
+    left: 155mm;
+}
+
+.psalm p {
+    text-align: left;
+    text-align-last: left;
+}
+
+section div.page-indicators {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #F0F0F0;
+    z-index: -2;
+    opacity: 0.2;
+    /*			display: none;*/
+}
+
+section div.page-indicators div {
+    margin-top: calc(210mm - 1px);
+    height: 1px;
+    background: red;
+}
+
+section div.page-indicators div::before {
+    transform: translate(0, -10mm);
+    height: 20mm;
+    background: #BBB;
+    content: ' ';
+    display: block;
+    position: relative;
+    z-index: -1;
+}
+
+.avoid-pagebreak {
+    background: rgba(255, 255, 0, 0.2);
+}
+
+table {
+    border-spacing: 0;
+    margin-top: var(--paragraph-space)
+}
