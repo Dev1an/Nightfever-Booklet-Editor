@@ -9,6 +9,9 @@ import {joinUp, joinDown, baseKeymap, toggleMark} from "prosemirror-commands";
 import {replaceSelectionWith} from "./commands";
 import {findParentNode} from "./commands";
 
+import {EditorState} from "prosemirror-state"
+import {EditorView} from "prosemirror-view"
+
 const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false
 
 export const songSchema = new Schema({
@@ -107,3 +110,17 @@ export const songPlugins = [
     gapCursor(),
     history()
 ]
+
+const editorStateConfig = {
+    schema: songSchema,
+    plugins: songPlugins,
+}
+
+export class SongEditor extends EditorView {
+    constructor(container) {
+        const properties = {
+            state: EditorState.create(editorStateConfig)
+        }
+        super(container, properties)
+    }
+}
