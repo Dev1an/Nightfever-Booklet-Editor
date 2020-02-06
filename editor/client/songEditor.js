@@ -22,7 +22,7 @@ export const songSchema = new Schema({
             defining: true,
             content: '(text|hard_break)*',
             attrs: {isRefrain: {default: false}},
-            toDOM: node => ['li', {class: node.attrs.isRefrain ? 'refrain' : ''}, 0],
+            toDOM: node => ['li', {class: node.attrs.isRefrain ? 'refrain avoid-pagebreak' : 'avoid-pagebreak'}, 0],
             parseDOM: [{
                 tag: 'li',
                 getAttrs(dom) {
