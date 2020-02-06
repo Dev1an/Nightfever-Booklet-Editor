@@ -16,18 +16,14 @@ export const referenceSchema = new Schema({
     marks: {}
 })
 
-function placeholderPlugin(text) {
-    return new Plugin({
-        props: {
-            decorations(state) {
-                let doc = state.doc
-                console.log(doc.childCount)
-                if (doc.childCount == 0)
-                    return DecorationSet.create(doc, [Decoration.widget(0, document.createTextNode(text))])
-            }
+const placeholderPlugin = new Plugin({
+    props: {
+        decorations(state) {
+            if (state.doc.childCount === 0)
+                return DecorationSet.create(state.doc, [Decoration.widget(0, document.createTextNode('Reference here'))])
         }
-    })
-}
+    }
+})
 
 const editorStateConfig = {
     schema: referenceSchema,
@@ -41,7 +37,7 @@ const editorStateConfig = {
         dropCursor(),
         gapCursor(),
         history(),
-        placeholderPlugin('Reference here')
+        placeholderPlugin
     ]
 }
 

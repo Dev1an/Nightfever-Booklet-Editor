@@ -4,8 +4,14 @@
 
 <body>
   <div class="controls">
+    <h1>Manual</h1>
+    <h2>Songs</h2>
+    <ul>
+      <li>[Ctrl+R]: Toggle refrain</li>
+      <li>[Ctrl+Enter]: New line inside verse</li>
+      <li>[Enter]: New verse</li>
+    </ul>
     <button onclick="insertAutoPageBreaks()">Insert page break margins</button>
-    <div id="editor"></div>
   </div>
   <section>
     <div class="page-indicators">
@@ -34,20 +40,20 @@
     </div>
     <div class="flex">
       <div class="equal">
-        <p>
-          Uit de brief van de heilige apostel Paulus aan de christenen van Rome.
-        </p>
-        <p>
-          Broeders en zusters, sprekend tot zwakke mensen druk ik mij erg menselijk uit. Zoals gij eertijds uw ledematen in dienst hebt gesteld van onreinheid en steeds grotere bandeloosheid, zo moet gij ze nu in dienst stellen van de gerechtigheid tot uw heiliging. Toen gij slaven waart van de zonde, stond gij vrij ten opzichte van de gerechtigheid. Welk voordeel had gij toen van daden waarover gij u thans schaamt? Want het einde daarvan is de dood. Maar nu, bevrijd van de zonde en dienstknechten geworden van God, oogst gij heiligheid en tenslotte eeuwig leven. Want het loon van de zonde is de dood, maar de gave van God is het eeuwige leven in Christus Jezus, onze Heer.
-        </p>
+        <div class="reading-editor">
+          <p>Uit de brief van de heilige apostel Paulus aan de christenen van Rome.</p>
+          <p>Broeders en zusters, sprekend tot zwakke mensen druk ik mij erg menselijk uit. Zoals gij eertijds uw ledematen in dienst hebt gesteld van onreinheid en steeds grotere bandeloosheid, zo moet gij ze nu in dienst stellen van de gerechtigheid tot uw heiliging. Toen gij slaven waart van de zonde, stond gij vrij ten opzichte van de gerechtigheid. Welk voordeel had gij toen van daden waarover gij u thans schaamt? Want het einde daarvan is de dood. Maar nu, bevrijd van de zonde en dienstknechten geworden van God, oogst gij heiligheid en tenslotte eeuwig leven. Want het loon van de zonde is de dood, maar de gave van God is het eeuwige leven in Christus Jezus, onze Heer.</p>
+        </div>
         <p class="avoid-pagebreak">
           Zo spreekt de Heer.<br>
           <b>Wij danken God.</b>
         </p>
       </div>
       <div class="equal right">
-        <p>From a letter of the apostle Paul to the Romans.</p>
-        <p>Brothers and sisters: I am speaking in human terms because of the weakness of your nature. For just as you present- ed the parts of your bodies as slaves to impurity and to lawlessness for lawless- ness, so now present them as slaves to righteousness for sanctification. For when you were slaves of sin, you were free from righteousness. But what profit did you get then from the things of which you are now ashamed? For the end of those things is death. But now that you have been freed from sin and have be- come slaves of God, the benefit that you have leads to sanctification, and its end is eternal life. For the wages of sin is death, but the gift of God is eternal life in Christ Jesus our Lord.</p>
+        <div class="reading-editor">
+          <p>From a letter of the apostle Paul to the Romans.</p>
+          <p>Brothers and sisters: I am speaking in human terms because of the weakness of your nature. For just as you present- ed the parts of your bodies as slaves to impurity and to lawlessness for lawless- ness, so now present them as slaves to righteousness for sanctification. For when you were slaves of sin, you were free from righteousness. But what profit did you get then from the things of which you are now ashamed? For the end of those things is death. But now that you have been freed from sin and have be- come slaves of God, the benefit that you have leads to sanctification, and its end is eternal life. For the wages of sin is death, but the gift of God is eternal life in Christ Jesus our Lord.</p>
+        </div>
         <p class="avoid-pagebreak">
           The Word of the Lord.<br>
           <b>Thanks be to God. </b>
@@ -60,35 +66,32 @@
         <p class="response">
           Gelukkig is de man die op de Heer zijn hoop stelt.
         </p>
-        <p>
-          Gelukkig de man die weigert te doen,
-          wat goddelozen hem raden;
-          die niet de wegen der zondaars gaat,
-          niet zit te midden der spotters;
-          maar die zijn geluk vindt in ‘s Heren wet, haar dag en nacht overweegt.
-        </p>
-        <p>
-          Hij is als een boom, aan het water geplant,
-          die vruchten draagt op zijn tijd;
-          des zomers verdorren zijn bladeren niet,
-          maar al wat hij doet brengt hem voorspoed.
-        </p>
-        <p>
-          De goddelozen vergaat het zo niet: de wind blaast hen weg als kaf. De Heer immers let op de weg der gerechten, de weg van de zondaars loopt dood.
-        </p>
+        <div class="reading-editor">
+          <p>
+            Gelukkig de man die weigert te doen,
+            wat goddelozen hem raden;
+            die niet de wegen der zondaars gaat,
+            niet zit te midden der spotters;
+            maar die zijn geluk vindt in ‘s Heren wet, haar dag en nacht overweegt.
+          </p>
+          <p>
+            Hij is als een boom, aan het water geplant,
+            die vruchten draagt op zijn tijd;
+            des zomers verdorren zijn bladeren niet,
+            maar al wat hij doet brengt hem voorspoed.
+          </p>
+          <p>
+            De goddelozen vergaat het zo niet: de wind blaast hen weg als kaf. De Heer immers let op de weg der gerechten, de weg van de zondaars loopt dood.
+          </p>
+        </div>
       </div>
       <div class="equal right">
-        <p class="response">Blessed are they who hope in the Lord.
-        </p>
-        <p>
-          Blessed the man who follows not the counsel of the wicked Nor walks in the way of sinners, nor sits in the company of the insolent, But delights in the law of the LORD and meditates on his law day and night.
-        </p>
-        <p>
-          He is like a tree planted near running water, That yields its fruit in due sea- son, and whose leaves never fade. Whatever he does, prospers.<br><br>
-        </p>
-        <p>
-          Not so the wicked, not so; they are like chaff which the wind drives away. For the LORD watches over the way of the just, but the way of the wicked vanishes.
-        </p>
+        <p class="response">Blessed are they who hope in the Lord.</p>
+        <div class="reading-editor">
+          <p>Blessed the man who follows not the counsel of the wicked Nor walks in the way of sinners, nor sits in the company of the insolent, But delights in the law of the LORD and meditates on his law day and night.</p>
+          <p>He is like a tree planted near running water, That yields its fruit in due sea- son, and whose leaves never fade. Whatever he does, prospers.<br><br></p>
+          <p>Not so the wicked, not so; they are like chaff which the wind drives away. For the LORD watches over the way of the just, but the way of the wicked vanishes.</p>
+        </div>
       </div>
     </div>
     <div class="prefer-pagebreak"></div>
@@ -130,9 +133,9 @@
     </div>
     <div class="flex">
       <div class="equal">
-        <p>
-          In die tijd zei Jezus tot zijn leerlingen: “Vuur ben Ik op aarde komen brengen, en hoe verlang Ik dat het reeds oplaait! Ik moet een doopsel ondergaan, en hoe beklemd voel Ik Mij, totdat het volbracht is. Meent gij dat Ik op aarde vrede ben komen brengen? Neen, zeg Ik u, juist verdeeldheid. Want van nu af zullen er vijf in één huis verdeeld zijn; drie zullen er staan tegenover twee en twee tegenover drie; de vader tegenover de zoon en de zoon tegenover de vader; de moeder tegenover de dochter en de dochter tegenover de moeder, de schoonmoeder tegenover haar schoondochter en de schoondochter tegenover de schoonmoeder.”
-        </p>
+        <div class="reading-editor">
+          <p>In die tijd zei Jezus tot zijn leerlingen: “Vuur ben Ik op aarde komen brengen, en hoe verlang Ik dat het reeds oplaait! Ik moet een doopsel ondergaan, en hoe beklemd voel Ik Mij, totdat het volbracht is. Meent gij dat Ik op aarde vrede ben komen brengen? Neen, zeg Ik u, juist verdeeldheid. Want van nu af zullen er vijf in één huis verdeeld zijn; drie zullen er staan tegenover twee en twee tegenover drie; de vader tegenover de zoon en de zoon tegenover de vader; de moeder tegenover de dochter en de dochter tegenover de moeder, de schoonmoeder tegenover haar schoondochter en de schoondochter tegenover de schoonmoeder.”</p>
+        </div>
         <div class="avoid-pagebreak">
           <p>
             Tot zover het Evangelie.<br>
@@ -144,7 +147,9 @@
         </div>
       </div>
       <div class="equal right">
-        <p>Jesus said to his disciples: “I have come to set the earth on fire, and how I wish it were already blazing! There is a baptism with which I must be baptized, and how great is my anguish until it is accomplished! Do you think that I have come to establish peace on the earth? No, I tell you, but rather division. From now on a household of five will be divided, three against two and two against three; a father will be divided against his son and a son against his father, a mother against her daughter and a daughter against her mother, a mother-in-law against her daughter-in- law and a daughter-in-law against her mother-in-law.”</p>
+        <div class="reading-editor">
+          <p>Jesus said to his disciples: “I have come to set the earth on fire, and how I wish it were already blazing! There is a baptism with which I must be baptized, and how great is my anguish until it is accomplished! Do you think that I have come to establish peace on the earth? No, I tell you, but rather division. From now on a household of five will be divided, three against two and two against three; a father will be divided against his son and a son against his father, a mother against her daughter and a daughter against her mother, a mother-in-law against her daughter-in- law and a daughter-in-law against her mother-in-law.”</p>
+        </div>
         <div class="avoid-pagebreak">
           <p>
             The Gospel of the Lord.<br>

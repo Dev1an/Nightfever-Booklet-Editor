@@ -128,7 +128,7 @@ p {
     justify-content: space-between;
 }
 
-.flex div, td {
+.flex > div, td {
     padding: 0 2mm;
     align-self: baseline;
 }
@@ -197,11 +197,16 @@ section div.page-indicators div::before {
     z-index: -1;
 }
 
-.avoid-pagebreak {
+.avoid-pagebreak:hover {
     background: rgba(255, 255, 0, 0.2);
 }
 
 table {
     border-spacing: 0;
     margin-top: var(--paragraph-space)
+}
+
+.placeholder {
+    color: gray;
+    margin-bottom: 2em;
 }

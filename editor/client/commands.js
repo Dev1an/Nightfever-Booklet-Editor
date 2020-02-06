@@ -7,14 +7,26 @@ export function replaceSelectionWith(nodeSpec) {
     })
 }
 
-export function findParentNode(predicate) {
+export function toggleNodeAttribute(nodeType, attributeName) {
+    const isNodeType = (node => node.type === nodeType)
+    return function(state, dispatch) {
+        const {pos, node} = findParentNode(isNodeType)(state.selection)
+        if (node && dispatch) {
+            dispatch(state.tr.setNodeMarkup(pos, null, {[attributeName]: !node.attrs[attributeName]}))
+            return true
+        }
+        return false
+    }
+}
+
+function findParentNode(predicate) {
     return function (_ref) {
         var $from = _ref.$from;
         return findParentNodeClosestToPos($from, predicate);
     };
 }
 
-export function findParentNodeClosestToPos($pos, predicate) {
+function findParentNodeClosestToPos($pos, predicate) {
     for (var i = $pos.depth; i > 0; i--) {
         var node = $pos.node(i);
         if (predicate(node)) {
