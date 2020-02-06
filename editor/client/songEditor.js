@@ -19,14 +19,18 @@ export const songSchema = new Schema({
             content: 'list_item+'
         },
         list_item: {
-            ...listItem,
+            defining: true,
             content: '(text|hard_break)*',
             attrs: {isRefrain: {default: false}},
             toDOM: node => ['li', {class: node.attrs.isRefrain ? 'refrain' : ''}, 0],
-            getAttrs(dom) {
-                if (dom.classList.contains('refrain'))
-                    return {refrain: true}
-            }
+            parseDOM: [{
+                tag: 'li',
+                getAttrs(dom) {
+                    if (dom.classList.contains('refrain')) {
+                        return {isRefrain: true}
+                    }
+                }
+            }]
         },
         text: {
             group: 'inline'
