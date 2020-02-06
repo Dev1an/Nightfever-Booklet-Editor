@@ -10,6 +10,11 @@ html, body {
     hanging-punctuation: allow-end;
 }
 
+@font-face {
+    font-family: "Liturgy";
+    src: url("./liturgy.woff2") format("woff2");
+}
+
 @page {
     margin: 0;
     padding: 0;
@@ -94,8 +99,9 @@ ol li::before {
     content: counter(li)".";
 }
 
-ol li.refrain::before {
+ol li.refrain::before, .response::before {
     content: 'R.';
+    font-family: "Liturgy", "Palatino", serif;
 }
 
 ol li:not(.refrain) {
@@ -150,7 +156,6 @@ p {
 }
 
 .response::before {
-    content: 'R. ';
     color: gray;
 }
 
