@@ -8,7 +8,7 @@ import { gapCursor }           from "prosemirror-gapcursor";
 import { dropCursor }          from "prosemirror-dropcursor";
 import { DecorationSet, Decoration } from "prosemirror-view";
 
-export const referenceSchema = new Schema({
+const schema = new Schema({
     nodes: {
         doc: {content: 'text*'},
         text: {}
@@ -26,7 +26,7 @@ const placeholderPlugin = new Plugin({
 })
 
 const editorStateConfig = {
-    schema: referenceSchema,
+    schema,
     plugins: [
         keymap({
             "Mod-z": undo,
@@ -43,7 +43,7 @@ const editorStateConfig = {
 
 import { SegmentEditor } from "./SegmentEditor";
 
-export class ReferenceEditor extends SegmentEditor {
+export class PlainTextEditor extends SegmentEditor {
     constructor(container) {
         super(container, editorStateConfig)
     }
