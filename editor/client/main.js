@@ -13,5 +13,10 @@ window.addEventListener('load', function() {
             doc: DOMParser.fromSchema(songSchema).parse(content),
             plugins: songPlugins,
         }),
+        dispatchTransaction(transaction) {
+            const newState = window.view.state.apply(transaction)
+            console.log(newState.doc.content.content[0].toJSON())
+            window.view.updateState(newState)
+        }
     })
 })

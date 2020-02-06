@@ -13,12 +13,12 @@ const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : f
 
 export const songSchema = new Schema({
     nodes: {
-        doc: {content: 'ordered_list'},
-        ordered_list: {
+        doc: {content: 'song'},
+        song: {
             ...orderedList,
-            content: 'list_item+'
+            content: 'verse+'
         },
-        list_item: {
+        verse: {
             defining: true,
             content: '(text|hard_break)*',
             attrs: {isRefrain: {default: false}},
@@ -74,7 +74,7 @@ export const songSchema = new Schema({
 })
 
 const insertHardBreak = replaceSelectionWith(songSchema.nodes.hard_break)
-const isSongVerse = (node => node.type === songSchema.nodes.list_item)
+const isSongVerse = (node => node.type === songSchema.nodes.verse)
 function toggleRefrain(state, dispatch) {
     const {pos, node} = findParentNode(isSongVerse)(state.selection)
     if (node && dispatch) {
