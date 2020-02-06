@@ -1,4 +1,4 @@
-import {orderedList, listItem, splitListItem} from "prosemirror-schema-list"
+import {orderedList, splitListItem} from "prosemirror-schema-list"
 import {Schema} from "prosemirror-model"
 import {inputRules, smartQuotes, undoInputRule} from "prosemirror-inputrules"
 import {keymap, base} from "prosemirror-keymap";
@@ -9,10 +9,9 @@ import {joinUp, joinDown, baseKeymap, toggleMark} from "prosemirror-commands";
 import {replaceSelectionWith} from "./commands";
 import {findParentNode} from "./commands";
 
-import {EditorState} from "prosemirror-state"
-import {EditorView} from "prosemirror-view"
+import {SegmentEditor} from "./SegmentEditor";
 
-const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false
+const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false;
 
 export const songSchema = new Schema({
     nodes: {
@@ -116,11 +115,8 @@ const editorStateConfig = {
     plugins: songPlugins,
 }
 
-export class SongEditor extends EditorView {
+export class SongEditor extends SegmentEditor {
     constructor(container) {
-        const properties = {
-            state: EditorState.create(editorStateConfig)
-        }
-        super(container, properties)
+        super(container, editorStateConfig)
     }
 }
