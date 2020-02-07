@@ -1,5 +1,5 @@
 import {EditorState} from "prosemirror-state"
-import {EditorView} from "prosemirror-view"
+import {EditorView} from "./prosemirror-view"
 import {DOMParser} from "prosemirror-model"
 import {insertAutoPageBreaks} from "./insertPageBreaks";
 
@@ -13,7 +13,7 @@ export class SegmentEditor extends EditorView {
             }),
             dispatchTransaction(transaction) {
                 const changeComesFromPageBreaker = transaction.docChanged && view.dom.querySelector('.inserted-by-pagebreaker') !== null
-                if (changeComesFromPageBreaker && this.savedSelection) {
+                if (changeComesFromPageBreaker && this.savedSelection !== null) {
                     const selection = this.savedSelection.resolve(transaction.doc)
                     transaction = transaction.setSelection(selection)
                     this.savedSelection = null
@@ -29,5 +29,6 @@ export class SegmentEditor extends EditorView {
         }
         super({mount: container}, properties)
         view = this
+        this.savedSelection = null
     }
 }

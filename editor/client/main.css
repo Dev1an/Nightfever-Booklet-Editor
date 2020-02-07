@@ -218,9 +218,9 @@ table {
     }
 }
 
-.prefer-pagebreak {
-    width: 5px;
-    height: 5px;
-    background-color: red;
+.prefer-pagebreak::before {
+    content: '$ pagebreak $';
+    font-size: 3mm;
+    color: red;
     position: absolute;
 }

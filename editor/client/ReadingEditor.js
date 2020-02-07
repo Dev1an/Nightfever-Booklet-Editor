@@ -4,15 +4,29 @@ import {
 import {inputRules, smartQuotes, undoInputRule} from "prosemirror-inputrules";
 import {keymap} from "prosemirror-keymap";
 import {history, redo, undo} from "prosemirror-history";
-import {baseKeymap, joinDown, joinUp, toggleMark} from "prosemirror-commands";
+import {
+    baseKeymap,
+    chainCommands,
+    joinDown,
+    joinUp,
+    liftEmptyBlock,
+    splitBlock,
+    toggleMark
+} from "prosemirror-commands";
 import {dropCursor} from "prosemirror-dropcursor";
 import {gapCursor} from "prosemirror-gapcursor";
-import {Schema} from "prosemirror-model";
-import {Plugin} from "prosemirror-state";
+import {
+    DOMSerializer,
+    Schema
+} from "prosemirror-model";
+import {
+    Plugin,
+    TextSelection
+} from "prosemirror-state";
 import {
     Decoration,
     DecorationSet
-} from "prosemirror-view";
+} from "./prosemirror-view";
 import {
     boldAndItalic,
     hard_break,
@@ -41,6 +55,7 @@ const schema = new Schema({
         splittedText
     }
 })
+
 
 function insertHardBreak(state, dispatch) {
     if (dispatch) {
@@ -81,13 +96,19 @@ const plugins = [
         "Mod-Enter":   insertHardBreak,
         "Shift-Enter": insertHardBreak,
         "Ctrl-Alt-n": insertHardBreak,
-        [mac ? "Ctrl-Enter": "Enter"]: insertHardBreak,
+        [mac ? "Ctrl-Enter": null]: insertHardBreak,
+    }),
+    keymap({
+        'Ctrl-Alt-n'(state, dispatch) {
+            dispatch(state.tr.insert(state.selection.from, schema.nodes.pageBreakPadding.create({height: '', manual: true})))
+            return true
+        }
     }),
     keymap(baseKeymap),
     dropCursor(),
     gapCursor(),
     history(),
-    placeholderPlugin
+    placeholderPlugin,
 ]
 
 export class ReadingEditor extends SegmentEditor {

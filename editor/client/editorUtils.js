@@ -41,15 +41,17 @@ export const splittedText = {
 }
 
 export const pageBreakPadding = {
-    attrs: {height: {default: '20mm'}},
+    attrs: {height: {default: '20mm'}, manual: {default: false}},
     atom: true,
     selectable: false,
     parseDOM: [{
         tag: 'div.pagebreak-padding',
-        getAttrs: dom => ({height: dom.style.height})
+        getAttrs: dom => ({height: dom.style.height, manual: dom.classList.contains('prefer-pagebreak')})
     }],
     toDOM(node) {
-        return createPageBreakPadding(node.attrs.height)
+        const element = createPageBreakPadding(node.attrs.height)
+        if (node.attrs.manual) element.classList.add('prefer-pagebreak', 'unused')
+        return element
     }
 }
 export const hard_break = {

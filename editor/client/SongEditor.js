@@ -73,7 +73,7 @@ export const songPlugins = [
         "Mod-I": toggleMark(songSchema.marks.em),
         "Mod-Enter":   insertHardBreak,
         "Shift-Enter": insertHardBreak,
-        [mac ? "Ctrl-Enter": "Enter"]: insertHardBreak,
+        [mac ? "Ctrl-Enter": null]: insertHardBreak,
         "Enter": splitListItem(songSchema.nodes.list_item),
     }),
     keymap(baseKeymap),

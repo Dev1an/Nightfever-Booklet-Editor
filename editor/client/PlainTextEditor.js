@@ -6,7 +6,7 @@ import { undoInputRule }       from "prosemirror-inputrules";
 import { baseKeymap }          from "prosemirror-commands";
 import { gapCursor }           from "prosemirror-gapcursor";
 import { dropCursor }          from "prosemirror-dropcursor";
-import { DecorationSet, Decoration } from "prosemirror-view";
+import { DecorationSet, Decoration } from "./prosemirror-view";
 
 const schema = new Schema({
     nodes: {

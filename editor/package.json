@@ -19,8 +19,7 @@
     "prosemirror-menu": "^1.1.2",
     "prosemirror-model": "^1.9.1",
     "prosemirror-schema-list": "^1.1.2",
-    "prosemirror-state": "^1.3.2",
-    "prosemirror-view": "^1.13.11"
+    "prosemirror-state": "^1.3.2"
   },
   "meteor": {
     "mainModule": {
