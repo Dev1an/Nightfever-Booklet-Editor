@@ -1,35 +1,9 @@
 /* Add space around the hr to make clicking it easier */
 
-.ProseMirror-example-setup-style hr {
-  padding: 2px 10px;
-  border: none;
-  margin: 1em 0;
-}
-
-.ProseMirror-example-setup-style hr:after {
-  content: "";
-  display: block;
-  height: 1px;
-  background-color: silver;
-  line-height: 2px;
-}
-
-.ProseMirror-invalid {
-  background: #ffc;
-  border: 1px solid #cc7;
-  border-radius: 4px;
-  padding: 5px 10px;
-  position: absolute;
-  min-width: 10em;
-}
-
-.ProseMirror-prompt-buttons {
-  margin-top: 5px;
-  display: none;
-}
-
-#editor {
-  background: #EEE;
+.ProseMirror {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  white-space: break-spaces;
 }
 
 .ProseMirror-focused {

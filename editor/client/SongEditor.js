@@ -1,4 +1,4 @@
-import {orderedList, splitListItem, mac} from "prosemirror-schema-list"
+import {orderedList, splitListItem} from "prosemirror-schema-list"
 import {Schema} from "prosemirror-model"
 import {inputRules, smartQuotes, undoInputRule} from "prosemirror-inputrules"
 import {keymap, base} from "prosemirror-keymap";
@@ -11,14 +11,20 @@ import {
     toggleNodeAttribute
 } from "./commands";
 
-import {boldAndItalic, SegmentEditor, hard_break} from "./SegmentEditor";
+import {SegmentEditor} from "./SegmentEditor";
+import {
+    boldAndItalic,
+    hard_break,
+    mac,
+    pageBreakPadding
+} from "./editorUtils";
 
 export const songSchema = new Schema({
     nodes: {
         doc: {content: 'song'},
         song: {
             ...orderedList,
-            content: 'verse+',
+            content: 'verse (verse|pageBreakPadding)*',
             attrs: {hasTwoColumns: {default: false}},
             toDOM: node => ['ol', {class: node.attrs.hasTwoColumns ? 'two-columns' : ''}, 0],
             parseDOM: [{
@@ -45,7 +51,8 @@ export const songSchema = new Schema({
             }]
         },
         text: {},
-        hard_break
+        hard_break,
+        pageBreakPadding
     },
     marks: boldAndItalic
 })

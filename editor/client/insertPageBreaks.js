@@ -2,11 +2,16 @@ let section;
 window.addEventListener('load', setSection)
 
 function removePageBreaks() {
-    document.querySelectorAll('span.splitted').forEach(text => {
+    document.querySelectorAll('span.splitted').forEach( text =>
         text.parentNode.replaceChild(text.childNodes[0], text)
+    )
+    document.querySelectorAll('.pagebreak-padding').forEach( pagebreak => {
+        const parent = pagebreak.parentNode
+        parent.removeChild(pagebreak)
+        parent.normalize()
     })
-    document.querySelectorAll('.pagebreak-padding').forEach(
-        pagebreak => pagebreak.parentNode.removeChild(pagebreak)
+    document.querySelectorAll('.prefer-pagebreak').forEach( pagebreak =>
+        pagebreak.classList.add('unused')
     )
 }
 
@@ -23,11 +28,12 @@ function insertAutoPageBreak(page) {
     const mm = getPixelsPerMillimeter()
     const marge = (210 * (page+1) - 10) * mm
 
-    const manualPageBreak = document.querySelector('.prefer-pagebreak')
+    const manualPageBreak = document.querySelector('.prefer-pagebreak.unused')
     if (manualPageBreak && sectionOffset(manualPageBreak) < marge) {
         // console.log(`found manual page break on page ${page}`)
-        insertPageBreakBefore(manualPageBreak, marge, mm)
-        manualPageBreak.parentNode.removeChild(manualPageBreak)
+        const autoPagebreak = insertPageBreakBefore(manualPageBreak, marge, mm)
+        manualPageBreak.classList.remove('unused')
+        manualPageBreak.parentNode.insertBefore(manualPageBreak, autoPagebreak)
     } else {
         // console.log(`Inserting automatic page break on page ${page}`)
         for (const block of findOverflowNodes(marge)) {
@@ -43,9 +49,20 @@ function insertAutoPageBreak(page) {
 
 function splitText(node, marge) {
     const range = document.createRange()
-    const secondHalf = node.splitText(
-        binarySearch(node.nodeValue.length, liesBeforeMarge)
-    )
+    const splitPosition = binarySearch(node.nodeValue.length, liesBeforeMarge)
+    let secondHalf;
+    if (splitPosition !== 0) {
+        secondHalf = node.splitText(splitPosition)
+    } else {
+        // No need to split
+        if (node.previousSibling === null) {
+            return node.parentNode
+        } else {
+            secondHalf = node
+            node = node.previousSibling
+        }
+    }
+
     const span = document.createElement('span')
     node.parentNode.replaceChild(span, node)
     span.appendChild(node)
@@ -86,6 +103,7 @@ function insertPageBreakBefore(block, marge, mm) {
     const offsetTop = sectionOffset(space, false)
     const correction = (marge - offsetTop)/mm
     space.style.height = (20 + correction) + 'mm'
+    return space
 }
 
 function findOverflowNodes(marge) {

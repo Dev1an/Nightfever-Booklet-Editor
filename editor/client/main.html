@@ -19,7 +19,6 @@
       <li>[Ctrl+Enter]: New line</li>
       <li>[Enter]: New paragraph</li>
     </ul>
-    <button onclick="iAPB()">Insert page break margins</button>
   </div>
   <section>
     <div class="page-indicators">
@@ -33,7 +32,32 @@
     <h2 class="center">24 Oktober 2019</h2>
 
     <h3>Openingslied - Entrance Hymn</h3>
-    <div class="entrance song-editor"></div>
+    <div class="entrance song-editor">
+      <ol>
+        <li>
+          Juicht voor de Heer, alle landen,<br>
+          Dient met blijdschap de Heer,<br>
+          Treedt onbezorgd voor zijn aanschijn.<br>
+          Waarlijk, de Heer is God.
+        </li>
+        <li class="refrain">
+          <b>Alleluia, alleluia <br>
+            Alleluia, alleluia!</b>
+        </li>
+        <li>
+          Juicht voor de Heer, alle landen,<br>
+          Dient met blijdschap de Heer,<br>
+          Treedt onbezorgd voor zijn aanschijn.<br>
+          Waarlijk, de Heer is God.
+        </li>
+        <li>
+          Juicht voor de Heer, alle landen,<br>
+          Dient met blijdschap de Heer,<br>
+          Treedt onbezorgd voor zijn aanschijn.<br>
+          Waarlijk, de Heer is God.
+        </li>
+      </ol>
+    </div>
 
     <div class="avoid-pagebreak">
       <div class="flex title">
@@ -69,44 +93,45 @@
       </div>
     </div>
 
-    <div class="flex title">
-      <div><h3>Psalm</h3></div>
-      <div><span class="comment plaintext-editor">Ps 1</span></div>
+    <div class="avoid-pagebreak">
+      <div class="flex title">
+        <div><h3>Psalm</h3></div>
+        <div><span class="comment plaintext-editor">Ps 1</span></div>
+      </div>
+      <div class="flex psalm">
+        <div class="equal">
+          <p class="response plaintext-editor">Gelukkig is de man die op de Heer zijn hoop stelt.</p>
+        </div>
+        <div class="equal">
+          <p class="response plaintext-editor">Blessed are they who hope in the Lord.</p>
+        </div>
+      </div>
     </div>
     <div class="flex psalm">
-      <div class="equal">
-        <p class="response plaintext-editor">
-          Gelukkig is de man die op de Heer zijn hoop stelt.
+      <div class="equal reading-editor">
+        <p>
+          Gelukkig de man die weigert te doen,
+          wat goddelozen hem raden;
+          die niet de wegen der zondaars gaat,
+          niet zit te midden der spotters;
+          maar die zijn geluk vindt in ‘s Heren wet, haar dag en nacht overweegt.
         </p>
-        <div class="reading-editor">
-          <p>
-            Gelukkig de man die weigert te doen,
-            wat goddelozen hem raden;
-            die niet de wegen der zondaars gaat,
-            niet zit te midden der spotters;
-            maar die zijn geluk vindt in ‘s Heren wet, haar dag en nacht overweegt.
-          </p>
-          <p>
-            Hij is als een boom, aan het water geplant,
-            die vruchten draagt op zijn tijd;
-            des zomers verdorren zijn bladeren niet,
-            maar al wat hij doet brengt hem voorspoed.
-          </p>
-          <p>
-            De goddelozen vergaat het zo niet: de wind blaast hen weg als kaf. De Heer immers let op de weg der gerechten, de weg van de zondaars loopt dood.
-          </p>
-        </div>
+        <p>
+          Hij is als een boom, aan het water geplant,
+          die vruchten draagt op zijn tijd;
+          des zomers verdorren zijn bladeren niet,
+          maar al wat hij doet brengt hem voorspoed.
+        </p>
+        <p>
+          De goddelozen vergaat het zo niet: de wind blaast hen weg als kaf. De Heer immers let op de weg der gerechten, de weg van de zondaars loopt dood.
+        </p>
       </div>
-      <div class="equal right">
-        <p class="response plaintext-editor">Blessed are they who hope in the Lord.</p>
-        <div class="reading-editor">
-          <p>Blessed the man who follows not the counsel of the wicked Nor walks in the way of sinners, nor sits in the company of the insolent, But delights in the law of the LORD and meditates on his law day and night.</p>
-          <p>He is like a tree planted near running water, That yields its fruit in due sea- son, and whose leaves never fade. Whatever he does, prospers.<br></p>
-          <p>Not so the wicked, not so; they are like chaff which the wind drives away. For the LORD watches over the way of the just, but the way of the wicked vanishes.</p>
-        </div>
+      <div class="equal right reading-editor">
+        <p>He is like a tree planted near running water, That yields its fruit in due sea- son, and whose leaves never fade. Whatever he does, prospers.<br></p>
+        <p>Not so the wicked, not so; they are like chaff which the wind drives away. For the LORD watches over the way of the just, but the way of the wicked vanishes.</p>
       </div>
     </div>
-    <div class="prefer-pagebreak"></div>
+    <div class="prefer-pagebreak unused"></div>
 
     <div class="avoid-pagebreak">
       <div class="flex title">
@@ -174,7 +199,7 @@
       </div>
     </div>
 
-    <div class="prefer-pagebreak"></div>
+    <div class="prefer-pagebreak unused"></div>
 
     <h3>Offerande - Offertory Hymn</h3>
     <div class="offertory song-editor"></div>

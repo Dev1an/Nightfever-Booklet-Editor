@@ -182,13 +182,14 @@ section div.page-indicators {
 }
 
 section div.page-indicators div {
-    margin-top: calc(210mm - 1px);
+    margin-top: calc(210mm);
     height: 1px;
+    margin-bottom: -1px;
     background: red;
 }
 
 section div.page-indicators div::before {
-    transform: translate(0, -10mm);
+    transform: translate(0, calc(-10mm - 1px));
     height: 20mm;
     background: #BBB;
     content: ' ';
@@ -209,4 +210,17 @@ table {
 .placeholder {
     color: gray;
     margin-bottom: 2em;
+}
+
+@media print {
+    .prefer-pagebreak {
+        display: none;
+    }
+}
+
+.prefer-pagebreak {
+    width: 5px;
+    height: 5px;
+    background-color: red;
+    position: absolute;
 }

@@ -1,10 +1,5 @@
 import {
-    boldAndItalic,
-    hard_break,
-    SegmentEditor,
-    mac,
-    splittedText,
-    pageBreakPadding
+    SegmentEditor
 } from "./SegmentEditor";
 import {inputRules, smartQuotes, undoInputRule} from "prosemirror-inputrules";
 import {keymap} from "prosemirror-keymap";
@@ -13,12 +8,18 @@ import {baseKeymap, joinDown, joinUp, toggleMark} from "prosemirror-commands";
 import {dropCursor} from "prosemirror-dropcursor";
 import {gapCursor} from "prosemirror-gapcursor";
 import {Schema} from "prosemirror-model";
-import {replaceSelectionWith} from "./commands";
 import {Plugin} from "prosemirror-state";
 import {
     Decoration,
     DecorationSet
 } from "prosemirror-view";
+import {
+    boldAndItalic,
+    hard_break,
+    mac,
+    pageBreakPadding,
+    splittedText
+} from "./editorUtils";
 
 const schema = new Schema({
     nodes: {
@@ -30,7 +31,10 @@ const schema = new Schema({
         },
         text: {},
         hard_break,
-        pageBreakPadding
+        pageBreakPadding: {
+            ...pageBreakPadding,
+            inline: true
+        }
     },
     marks: {
         ...boldAndItalic,
@@ -38,7 +42,15 @@ const schema = new Schema({
     }
 })
 
-const insertHardBreak = replaceSelectionWith(schema.nodes.hard_break)
+function insertHardBreak(state, dispatch) {
+    if (dispatch) {
+        dispatch(state.tr
+            .removeMark(state.selection.$from.parentOffset, state.selection.$from.pos, schema.marks.splittedText)
+            .replaceSelectionWith(schema.nodes.hard_break.create())
+        )
+    }
+}
+
 const placeholderPlugin = new Plugin({
     props: {
         decorations(state) {
@@ -68,6 +80,7 @@ const plugins = [
         "Mod-I": toggleMark(schema.marks.em),
         "Mod-Enter":   insertHardBreak,
         "Shift-Enter": insertHardBreak,
+        "Ctrl-Alt-n": insertHardBreak,
         [mac ? "Ctrl-Enter": "Enter"]: insertHardBreak,
     }),
     keymap(baseKeymap),
