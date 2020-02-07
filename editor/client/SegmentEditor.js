@@ -1,16 +1,33 @@
 import {EditorState} from "prosemirror-state"
 import {EditorView} from "prosemirror-view"
-import {DOMParser} from "prosemirror-model";
+import {DOMParser} from "prosemirror-model"
+import {
+    createPageBreakPadding,
+    insertAutoPageBreaks
+} from "./insertPageBreaks";
 
 export class SegmentEditor extends EditorView {
     constructor(container, editorStateConfig) {
+        let view;
         const properties = {
             state: EditorState.create({
                 ...editorStateConfig,
                 doc: DOMParser.fromSchema(editorStateConfig.schema).parse(container)
-            })
+            }),
+            dispatchTransaction(transaction) {
+                if (transaction.docChanged) {
+                    var pagebreak = view.dom.querySelector('.inserted-by-pagebreaker')
+                }
+                const newState = view.state.apply(transaction)
+                view.updateState(newState)
+                if (pagebreak === null) {
+                    insertAutoPageBreaks()
+                }
+            },
+            handleScrollToSelection(view) { return true }
         }
         super({mount: container}, properties)
+        view = this
     }
 }
 
@@ -43,6 +60,25 @@ export const boldAndItalic = {
             return ["strong", 0]
         }
     },
+}
+
+export const splittedText = {
+    parseDOM: [{tag: 'span.splitted'}],
+    toDOM() {return ['span', {class: 'splitted'}, 0]}
+}
+
+export const pageBreakPadding = {
+    attrs: {height: {default: '20mm'}},
+    inline: true,
+    atom: true,
+    selectable: false,
+    parseDOM: [{
+        tag: 'div.pagebreak-padding',
+        getAttrs: dom => ({height: dom.style.height})
+    }],
+    toDOM(node) {
+        return createPageBreakPadding(node.attrs.height)
+    }
 }
 
 export const hard_break = {

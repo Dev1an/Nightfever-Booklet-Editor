@@ -1,4 +1,11 @@
-import {boldAndItalic, hard_break, SegmentEditor, mac} from "./SegmentEditor";
+import {
+    boldAndItalic,
+    hard_break,
+    SegmentEditor,
+    mac,
+    splittedText,
+    pageBreakPadding
+} from "./SegmentEditor";
 import {inputRules, smartQuotes, undoInputRule} from "prosemirror-inputrules";
 import {keymap} from "prosemirror-keymap";
 import {history, redo, undo} from "prosemirror-history";
@@ -17,14 +24,18 @@ const schema = new Schema({
     nodes: {
         doc: {content: 'paragraph+'},
         paragraph: {
-            content: "(text|hard_break)*",
+            content: "(text|hard_break|pageBreakPadding)*",
             parseDOM: [{tag: "p"}],
             toDOM() { return ['p',0] }
         },
         text: {},
-        hard_break
+        hard_break,
+        pageBreakPadding
     },
-    marks: boldAndItalic
+    marks: {
+        ...boldAndItalic,
+        splittedText
+    }
 })
 
 const insertHardBreak = replaceSelectionWith(schema.nodes.hard_break)

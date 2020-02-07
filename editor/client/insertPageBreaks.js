@@ -1,24 +1,35 @@
 let section;
 window.addEventListener('load', setSection)
 
-function insertAutoPageBreaks() {
+function removePageBreaks() {
+    document.querySelectorAll('span.splitted').forEach(text => {
+        text.parentNode.replaceChild(text.childNodes[0], text)
+    })
+    document.querySelectorAll('.pagebreak-padding').forEach(
+        pagebreak => pagebreak.parentNode.removeChild(pagebreak)
+    )
+}
+
+export function insertAutoPageBreaks() {
+    removePageBreaks()
     for (let page = 0; page < 3; page++) {
         insertAutoPageBreak(page)
     }
 }
 
-window.insertAutoPageBreaks = insertAutoPageBreaks
+window.iAPB = insertAutoPageBreaks
 
 function insertAutoPageBreak(page) {
     const mm = getPixelsPerMillimeter()
     const marge = (210 * (page+1) - 10) * mm
 
     const manualPageBreak = document.querySelector('.prefer-pagebreak')
-    console.log(manualPageBreak, manualPageBreak ? sectionOffset(manualPageBreak) : undefined, marge)
     if (manualPageBreak && sectionOffset(manualPageBreak) < marge) {
+        // console.log(`found manual page break on page ${page}`)
         insertPageBreakBefore(manualPageBreak, marge, mm)
         manualPageBreak.parentNode.removeChild(manualPageBreak)
     } else {
+        // console.log(`Inserting automatic page break on page ${page}`)
         for (const block of findOverflowNodes(marge)) {
             if (block.nodeType === Node.TEXT_NODE) {
                 const textNode = splitText(block, marge)
@@ -61,8 +72,16 @@ function binarySearch(length, pred) {
     return hi;
 }
 
-function insertPageBreakBefore(block, marge, mm) {
+export function createPageBreakPadding(height) {
     const space = document.createElement('div')
+    space.className = 'pagebreak-padding'
+    if (height) space.style.height = height
+    return space
+}
+
+function insertPageBreakBefore(block, marge, mm) {
+    const space = createPageBreakPadding()
+    space.classList.add('inserted-by-pagebreaker')
     block.parentNode.insertBefore(space, block)
     const offsetTop = sectionOffset(space, false)
     const correction = (marge - offsetTop)/mm
@@ -90,6 +109,7 @@ function findOverflowNodes(marge) {
                 }
             }
         }
+        return []
     }
 
     function shouldSplit(block) {
@@ -98,7 +118,7 @@ function findOverflowNodes(marge) {
 }
 
 function mayPageBreak(block) {
-    if (block.classList && (block.classList.contains('avoid-pagebreak') || block.classList.contains('two-columns')))
+    if (block.classList && (block.classList.contains('avoid-pagebreak') || block.classList.contains('two-columns') || block.classList.contains('plaintext-editor')))
         return false
     return true
 }
@@ -111,7 +131,7 @@ function getPixelsPerMillimeter() {
     return section.clientWidth / 148
 }
 
-function setSection() {
+export function setSection() {
     section = document.querySelector('section')
 }
 
