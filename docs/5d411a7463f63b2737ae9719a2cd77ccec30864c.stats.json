@@ -1,0 +1,359 @@
+{
+  "minifier": {
+    "name": "standard-minifier-js",
+    "version": "2.6.0"
+  },
+  "totalMinifiedBytes": 358190,
+  "totalMinifiedGzipBytes": 106862,
+  "minifiedBytesByPackage": {
+    "packages/meteor.js": 9504,
+    "packages/static-html.js": 31,
+    "packages/standard-minifier-css.js": 41,
+    "packages/standard-minifier-js.js": 40,
+    "packages/modules-runtime.js": 4269,
+    "packages/modules.js": [
+      222091,
+      {
+        "node_modules": {
+          "meteor": {
+            "modules": {
+              "client.js": 126,
+              "css.js": 263,
+              "install-packages.js": 776,
+              "process.js": 349,
+              "reify.js": 73,
+              "stubs.js": 99,
+              "node_modules": {
+                "reify": {
+                  "lib": {
+                    "runtime": {
+                      "index.js": 911,
+                      "utils.js": 1222,
+                      "entry.js": 3047
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "@babel": {
+            "runtime": {
+              "helpers": {
+                "objectSpread2.js": 633,
+                "defineProperty.js": 150
+              },
+              "package.json": 610
+            }
+          },
+          "prosemirror-schema-list": {
+            "package.json": 124,
+            "dist": {
+              "index.es.js": 4126
+            }
+          },
+          "prosemirror-transform": {
+            "package.json": 122,
+            "dist": {
+              "index.es.js": 27269
+            }
+          },
+          "prosemirror-model": {
+            "package.json": 118,
+            "dist": {
+              "index.es.js": 47596
+            }
+          },
+          "orderedmap": {
+            "package.json": 101,
+            "index.es.js": 1396
+          },
+          "prosemirror-inputrules": {
+            "package.json": 123,
+            "dist": {
+              "index.es.js": 2504
+            }
+          },
+          "prosemirror-state": {
+            "package.json": 118,
+            "dist": {
+              "index.es.js": 14532
+            }
+          },
+          "prosemirror-keymap": {
+            "package.json": 119,
+            "dist": {
+              "index.es.js": 1297
+            }
+          },
+          "w3c-keyname": {
+            "package.json": 102,
+            "index.es.js": 1836
+          },
+          "prosemirror-dropcursor": {
+            "package.json": 123,
+            "dist": {
+              "index.es.js": 2895
+            }
+          },
+          "prosemirror-gapcursor": {
+            "package.json": 122,
+            "dist": {
+              "index.es.js": 3386
+            }
+          },
+          "prosemirror-view": {
+            "package.json": 119,
+            "dist": {
+              "index.es.js": 81169
+            }
+          },
+          "prosemirror-history": {
+            "package.json": 120,
+            "dist": {
+              "index.es.js": 6082
+            }
+          },
+          "rope-sequence": {
+            "package.json": 114,
+            "dist": {
+              "index.es.js": 3498
+            }
+          },
+          "prosemirror-commands": {
+            "package.json": 121,
+            "dist": {
+              "index.es.js": 9835
+            }
+          },
+          "meteor-node-stubs": {
+            "package.json": 87,
+            "index.js": 358,
+            "map.json": 1008,
+            "deps": {
+              "process.js": 38
+            },
+            "node_modules": {
+              "process": {
+                "browser.js": 1688
+              }
+            }
+          }
+        }
+      }
+    ],
+    "packages/es5-shim.js": 28,
+    "packages/modern-browsers.js": 35,
+    "packages/babel-compiler.js": 34,
+    "packages/ecmascript.js": 30,
+    "packages/typescript.js": 30,
+    "packages/shell-server.js": 32,
+    "packages/ecmascript-runtime.js": 38,
+    "packages/babel-runtime.js": [
+      949,
+      {
+        "node_modules": {
+          "meteor": {
+            "babel-runtime": {
+              "babel-runtime.js": 631
+            }
+          }
+        }
+      }
+    ],
+    "packages/promise.js": [
+      1339,
+      {
+        "node_modules": {
+          "meteor": {
+            "promise": {
+              "modern.js": 25,
+              "client.js": 73,
+              "extensions.js": 403,
+              "node_modules": {
+                "meteor-promise": {
+                  "package.json": 121,
+                  "promise_client.js": 268
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "packages/fetch.js": [
+      408,
+      {
+        "node_modules": {
+          "meteor": {
+            "fetch": {
+              "modern.js": 94
+            }
+          }
+        }
+      }
+    ],
+    "packages/dynamic-import.js": [
+      4641,
+      {
+        "node_modules": {
+          "meteor": {
+            "dynamic-import": {
+              "client.js": 1574,
+              "cache.js": 1952,
+              "common.js": 62,
+              "dynamic-versions.js": 652
+            }
+          }
+        }
+      }
+    ],
+    "packages/ecmascript-runtime-client.js": [
+      20886,
+      {
+        "node_modules": {
+          "meteor": {
+            "ecmascript-runtime-client": {
+              "modern.js": 766,
+              "node_modules": {
+                "core-js": {
+                  "modules": {
+                    "es.object.get-own-property-descriptors.js": 414,
+                    "es.object.is.js": 108,
+                    "es.function.name.js": 272,
+                    "es.number.is-finite.js": 120,
+                    "es.number.is-nan.js": 107,
+                    "es.array.flat.js": 404,
+                    "es.array.flat-map.js": 401,
+                    "es.object.from-entries.js": 226,
+                    "es.string.pad-start.js": 256,
+                    "es.string.pad-end.js": 252,
+                    "es.string.trim-start.js": 267,
+                    "es.string.trim-end.js": 260,
+                    "es.symbol.async-iterator.js": 80
+                  },
+                  "internals": {
+                    "export.js": 586,
+                    "global.js": 220,
+                    "object-get-own-property-descriptor.js": 428,
+                    "descriptors.js": 145,
+                    "fails.js": 76,
+                    "object-property-is-enumerable.js": 178,
+                    "create-property-descriptor.js": 113,
+                    "to-indexed-object.js": 140,
+                    "indexed-object.js": 225,
+                    "classof-raw.js": 88,
+                    "require-object-coercible.js": 104,
+                    "to-primitive.js": 354,
+                    "is-object.js": 96,
+                    "has.js": 86,
+                    "ie8-dom-define.js": 231,
+                    "document-create-element.js": 173,
+                    "hide.js": 229,
+                    "object-define-property.js": 359,
+                    "an-object.js": 140,
+                    "redefine.js": 724,
+                    "shared.js": 322,
+                    "set-global.js": 137,
+                    "is-pure.js": 31,
+                    "function-to-string.js": 108,
+                    "internal-state.js": 757,
+                    "native-weak-map.js": 162,
+                    "shared-key.js": 133,
+                    "uid.js": 131,
+                    "hidden-keys.js": 31,
+                    "copy-constructor-properties.js": 279,
+                    "own-keys.js": 284,
+                    "get-built-in.js": 222,
+                    "path.js": 53,
+                    "object-get-own-property-names.js": 187,
+                    "object-keys-internal.js": 306,
+                    "array-includes.js": 363,
+                    "to-length.js": 125,
+                    "to-integer.js": 104,
+                    "to-absolute-index.js": 138,
+                    "enum-bug-keys.js": 138,
+                    "object-get-own-property-symbols.js": 49,
+                    "is-forced.js": 279,
+                    "create-property.js": 226,
+                    "same-value.js": 96,
+                    "number-is-finite.js": 133,
+                    "flatten-into-array.js": 390,
+                    "is-array.js": 114,
+                    "bind-context.js": 358,
+                    "a-function.js": 122,
+                    "to-object.js": 110,
+                    "array-species-create.js": 320,
+                    "well-known-symbol.js": 229,
+                    "native-symbol.js": 132,
+                    "iterate.js": 710,
+                    "is-array-iterator-method.js": 190,
+                    "iterators.js": 31,
+                    "get-iterator-method.js": 204,
+                    "classof.js": 389,
+                    "call-with-safe-iteration-closing.js": 173,
+                    "string-pad.js": 378,
+                    "string-repeat.js": 291,
+                    "webkit-string-pad-bug.js": 122,
+                    "user-agent.js": 96,
+                    "string-trim.js": 305,
+                    "whitespaces.js": 107,
+                    "forced-string-trim-method.js": 181,
+                    "define-well-known-symbol.js": 245,
+                    "wrapped-well-known-symbol.js": 56
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "packages/webapp.js": [
+      650,
+      {
+        "node_modules": {
+          "meteor": {
+            "webapp": {
+              "webapp_client.js": 313
+            }
+          }
+        }
+      }
+    ],
+    "packages/server-render.js": 33,
+    "app/global-imports.js": [
+      198,
+      {}
+    ],
+    "app/app.js": [
+      92839,
+      {
+        "client": {
+          "prosemirror-view": {
+            "browser.js": 957,
+            "capturekeys.js": 3873,
+            "clipboard.js": 4198,
+            "decoration.js": 7881,
+            "dom.js": 1301,
+            "domchange.js": 6152,
+            "domcoords.js": 7613,
+            "domobserver.js": 5106,
+            "index.js": 6225,
+            "input.js": 12492,
+            "selection.js": 3749,
+            "viewdesc.js": 19178
+          },
+          "PlainTextEditor.js": 982,
+          "ReadingEditor.js": 2353,
+          "SegmentEditor.js": 1089,
+          "SongEditor.js": 2100,
+          "commands.js": 619,
+          "editorUtils.js": 993,
+          "insertPageBreaks.js": 2758,
+          "placeholders.js": 2121,
+          "main.js": 603
+        }
+      }
+    ]
+  }
+}
