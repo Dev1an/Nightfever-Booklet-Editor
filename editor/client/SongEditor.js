@@ -76,12 +76,6 @@ export const songPlugins = [
         [mac ? "Ctrl-Enter": null]: insertHardBreak,
         "Enter": splitListItem(songSchema.nodes.list_item),
     }),
-    keymap({
-        'Ctrl-Alt-n'(state, dispatch) {
-            dispatch(state.tr.insert(state.selection.from, songSchema.nodes.pageBreakPadding.create({height: '', manual: true})))
-            return true
-        }
-    }),
     keymap(baseKeymap),
     keymap({ "Ctrl-r": toggleNodeAttribute(songSchema.nodes.verse, 'isRefrain') }),
     keymap({ "Ctrl-t": toggleNodeAttribute(songSchema.nodes.song, 'hasTwoColumns') }),

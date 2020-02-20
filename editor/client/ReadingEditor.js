@@ -34,6 +34,7 @@ import {
     pageBreakPadding,
     splittedText
 } from "./editorUtils";
+import {placeReadings} from "./placeholders";
 
 const schema = new Schema({
     nodes: {
@@ -82,6 +83,24 @@ const placeholderPlugin = new Plugin({
 })
 
 const plugins = [
+    new Plugin({
+        props: {
+            handleDrop(view, event, slice, moved) {
+                const data = event.dataTransfer.getData('text/plain')
+                let json;
+                try {
+                    json = JSON.parse(data)
+                } catch (error) {
+                    return false
+                }
+                if (json && json.type === "com.devian.nightfever-booklet-generation.readings") {
+                    placeReadings(json)
+                    return true
+                }
+                return false
+            }
+        }
+    }),
     inputRules({ rules: smartQuotes }),
     keymap({
         "Mod-z": undo,
@@ -97,12 +116,6 @@ const plugins = [
         "Shift-Enter": insertHardBreak,
         "Ctrl-Alt-n": insertHardBreak,
         [mac ? "Ctrl-Enter": null]: insertHardBreak,
-    }),
-    keymap({
-        'Ctrl-Alt-n'(state, dispatch) {
-            dispatch(state.tr.insert(state.selection.from, schema.nodes.pageBreakPadding.create({height: '', manual: true})))
-            return true
-        }
     }),
     keymap(baseKeymap),
     dropCursor(),

@@ -6,10 +6,11 @@ import {insertAutoPageBreaks} from "./insertPageBreaks";
 export class SegmentEditor extends EditorView {
     constructor(container, editorStateConfig) {
         let view;
+        const parser = DOMParser.fromSchema(editorStateConfig.schema);
         const properties = {
             state: EditorState.create({
                 ...editorStateConfig,
-                doc: DOMParser.fromSchema(editorStateConfig.schema).parse(container)
+                doc: parser.parse(container)
             }),
             dispatchTransaction(transaction) {
                 const changeComesFromPageBreaker = transaction.docChanged && view.dom.querySelector('.inserted-by-pagebreaker') !== null
@@ -30,5 +31,19 @@ export class SegmentEditor extends EditorView {
         super({mount: container}, properties)
         view = this
         this.savedSelection = null
+        this.parser = parser
+        this.editorStateConfig = editorStateConfig
+        container.pmEditor = this
+    }
+
+    setInnerHTML(html) {
+        const element = document.createElement('div')
+        element.innerHTML = html
+        this.updateState(
+            EditorState.create({
+                ...this.editorStateConfig,
+                doc: this.parser.parse(element)
+            })
+        )
     }
 }

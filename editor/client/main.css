@@ -111,7 +111,7 @@ ol li:not(.refrain) {
 li {
     break-inside: avoid-column;
     margin-right: calc(var(--indentation)/2);
-    padding-bottom: var(--paragraph-space)
+    margin-bottom: var(--paragraph-space)
 }
 
 p {
@@ -212,15 +212,11 @@ table {
     margin-bottom: 2em;
 }
 
-@media print {
-    .prefer-pagebreak {
-        display: none;
+@media display {
+    .prefer-pagebreak::before {
+        content: '$ pagebreak $';
+        font-size: 3mm;
+        color: red;
+        position: absolute;
     }
-}
-
-.prefer-pagebreak::before {
-    content: '$ pagebreak $';
-    font-size: 3mm;
-    color: red;
-    position: absolute;
 }

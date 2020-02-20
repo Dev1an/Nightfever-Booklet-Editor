@@ -7,6 +7,7 @@ import {
     insertAutoPageBreaks,
     setSection
 } from "./insertPageBreaks";
+import {findPlaceHolders} from "./placeholders";
 
 window.addEventListener('load', function() {
     document.querySelectorAll('.song-editor')
@@ -17,6 +18,8 @@ window.addEventListener('load', function() {
 
     document.querySelectorAll('.reading-editor')
         .forEach(container => new ReadingEditor(container))
+
+    findPlaceHolders()
 
     insertAutoPageBreaks()
 })
