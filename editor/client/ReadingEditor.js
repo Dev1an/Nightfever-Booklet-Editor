@@ -82,25 +82,27 @@ const placeholderPlugin = new Plugin({
     }
 })
 
-const plugins = [
-    new Plugin({
-        props: {
-            handleDrop(view, event, slice, moved) {
-                const data = event.dataTransfer.getData('text/plain')
-                let json;
-                try {
-                    json = JSON.parse(data)
-                } catch (error) {
-                    return false
-                }
-                if (json && json.type === "com.devian.nightfever-booklet-generation.readings") {
-                    placeReadings(json)
-                    return true
-                }
+const dropReadingsPlugin = new Plugin({
+    props: {
+        handleDrop(view, event, slice, moved) {
+            const data = event.dataTransfer.getData('text/plain')
+            let json;
+            try {
+                json = JSON.parse(data)
+            } catch (error) {
                 return false
             }
+            if (json && json.type === "com.devian.nightfever-booklet-generation.readings") {
+                placeReadings(json)
+                return true
+            }
+            return false
         }
-    }),
+    }
+})
+
+const plugins = [
+    dropReadingsPlugin,
     inputRules({ rules: smartQuotes }),
     keymap({
         "Mod-z": undo,

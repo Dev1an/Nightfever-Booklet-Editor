@@ -1,62 +1,58 @@
 import {insertAutoPageBreaks} from "./insertPageBreaks";
+import {SegmentEditor} from "./SegmentEditor";
 
-const placeholders = {
-    english: {},
-    dutch: {}
+const places = []
+
+function addPlace(editor, ...keyPath) {
+    if (editor instanceof SegmentEditor) {
+        places.push({keyPath, editor})
+    } else {
+        console.error('Editor must be a SegmentEditor')
+    }
 }
 
 export function findPlaceHolders() {
-    placeholders.firstReadingReference = document.querySelector(('.first-reading.reference')).pmEditor
-    placeholders.dutch.firstReading   = document.querySelector('.first-reading .reading-editor.dutch').pmEditor
-    placeholders.english.firstReading = document.querySelector('.first-reading .reading-editor.english').pmEditor
+    const dq = (query) => document.querySelector(query)
 
-    placeholders.psalmReference = document.querySelector('.psalm .reference').pmEditor
-    placeholders.dutch.psalmResponse = document.querySelector('.psalm .response.dutch').pmEditor
-    placeholders.english.psalmResponse = document.querySelector('.psalm .response.english').pmEditor
-    placeholders.dutch.psalm = document.querySelector('.psalm .reading-editor.dutch').pmEditor
-    placeholders.english.psalm = document.querySelector('.psalm .reading-editor.english').pmEditor
+    const firstReadingReferenceEditor = dq('.first-reading.reference').pmEditor
+    addPlace(firstReadingReferenceEditor, 'english', 'readings', 0, 'reference')
+    addPlace(firstReadingReferenceEditor, 'dutch',   'readings', 0, 'reference')
+    addPlace(dq('.first-reading .reading-editor.dutch').pmEditor,   'dutch',   'readings', 0, 'text')
+    addPlace(dq('.first-reading .reading-editor.english').pmEditor, 'english', 'readings', 0, 'text')
+
+    const referenceEditor = dq('.psalm .reference').pmEditor
+    addPlace(referenceEditor, 'english', 'psalm', 'reference')
+    addPlace(referenceEditor, 'dutch',   'psalm', 'reference')
+    addPlace(dq('.psalm .response.english').pmEditor, 'english', 'psalmResponse')
+    addPlace(dq('.psalm .response.dutch').pmEditor,   'dutch',   'psalmResponse')
+    addPlace(dq('.psalm .reading-editor.dutch').pmEditor,   'dutch',   'psalm', 'text')
+    addPlace(dq('.psalm .reading-editor.english').pmEditor, 'english', 'psalm', 'text')
 
     const verseBeforeGospel = document.querySelector('.verse-before-gospel')
-    placeholders.verseBeforeGospelReference = verseBeforeGospel.querySelector('.reference').pmEditor
-    placeholders.dutch.verseBeforeGospel   = verseBeforeGospel.querySelector('.dutch').pmEditor
-    placeholders.english.verseBeforeGospel = verseBeforeGospel.querySelector('.english').pmEditor
+    const verseBeforeGospelReference = verseBeforeGospel.querySelector('.reference').pmEditor
+    addPlace(verseBeforeGospelReference, 'english', 'verseBeforeGospelReference')
+    addPlace(verseBeforeGospelReference, 'dutch',   'verseBeforeGospelReference')
+    addPlace(verseBeforeGospel.querySelector('.dutch').pmEditor, 'dutch', 'verseBeforeGospel')
+    addPlace(verseBeforeGospel.querySelector('.english').pmEditor, 'english', 'verseBeforeGospel')
 
-    placeholders.gospelReference = document.querySelector('.gospel .reference').pmEditor
-    placeholders.dutch.gospel = document.querySelector('.gospel .dutch.reading-editor').pmEditor
-    placeholders.english.gospel = document.querySelector('.gospel .english.reading-editor').pmEditor
+    const gospelReference = document.querySelector('.gospel .reference').pmEditor
+    addPlace(gospelReference, 'english', 'gospel', 'reference')
+    addPlace(gospelReference, 'dutch',   'gospel', 'reference')
+    addPlace(document.querySelector('.gospel .dutch.reading-editor').pmEditor,   'dutch',   'gospel', 'text')
+    addPlace(document.querySelector('.gospel .english.reading-editor').pmEditor, 'english', 'gospel', 'text')
 
-    console.log(placeholders)
+    console.log(places)
+}
+
+function resolvePath(object, path) {
+    return path.reduce((target, cursor) => target[cursor], object)
 }
 
 export function placeReadings(readings) {
     console.log(readings)
-    for (const lang of ['dutch', 'english']) {
-        if (readings[lang]) {
-            const data = readings[lang]
-            const place = placeholders[lang]
-            if (data.readings && data.readings.length > 0) {
-                const reading = data.readings[0]
-                if (reading.text) place.firstReading.setInnerHTML(reading.text)
-                if (reading.reference) placeholders.firstReadingReference.setInnerHTML(reading.reference)
-            }
-            if (data.psalmResponse) {
-                place.psalmResponse.setInnerHTML(data.psalmResponse)
-            }
-            if (data.psalm) {
-                if (data.psalm.text) place.psalm.setInnerHTML(data.psalm.text)
-                if (data.psalm.reference) placeholders.psalmReference.setInnerHTML(data.psalm.reference)
-            }
-            if (data.verseBeforeGospelReference) {
-                placeholders.verseBeforeGospelReference.setInnerHTML(data.verseBeforeGospelReference)
-            }
-            if (data.verseBeforeGospel) {
-                place.verseBeforeGospel.setInnerHTML(data.verseBeforeGospel)
-            }
-            if (data.gospel) {
-                if (data.gospel.text) place.gospel.setInnerHTML(data.gospel.text)
-                if (data.gospel.reference) placeholders.gospelReference.setInnerHTML(data.gospel.reference)
-            }
-        }
+    for (const {keyPath, editor} of places) {
+        const html = resolvePath(readings, keyPath)
+        if (html) editor.setInnerHTML(html)
     }
     insertAutoPageBreaks()
     insertAutoPageBreaks()
