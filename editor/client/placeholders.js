@@ -3,22 +3,14 @@ import {SegmentEditor} from "./SegmentEditor";
 
 const places = []
 
-function addPlace(editor, ...keyPath) {
-    if (editor instanceof SegmentEditor) {
-        places.push({keyPath, editor})
-    } else {
-        console.error('Editor must be a SegmentEditor')
+export function placeReadings(readings) {
+    console.log(readings)
+    for (const {keyPath, editor} of places) {
+        const html = resolvePath(readings, keyPath)
+        if (html) editor.setInnerHTML(html)
     }
-}
-
-function addPlaces(dictionary, path = []) {
-    for (const [field, value] of Object.entries(dictionary)) {
-        if (value instanceof SegmentEditor) {
-            addPlace(value, ...path.concat(field))
-        } else {
-            addPlaces(value, path.concat(field))
-        }
-    }
+    insertAutoPageBreaks()
+    insertAutoPageBreaks()
 }
 
 export function findPlaceHolders() {
@@ -46,19 +38,29 @@ export function findPlaceHolders() {
         }, [language])
     }
 
+    addPlace(dq('.gospel-intro').pmEditor, 'dutch', 'gospel', 'book')
     console.log(places)
 }
 
-function resolvePath(object, path) {
-    return path.reduce((target, cursor) => target[cursor], object)
+function addPlace(editor, ...keyPath) {
+    if (editor instanceof SegmentEditor) {
+        places.push({keyPath, editor})
+    } else {
+        console.error('Editor must be a SegmentEditor')
+    }
 }
 
-export function placeReadings(readings) {
-    console.log(readings)
-    for (const {keyPath, editor} of places) {
-        const html = resolvePath(readings, keyPath)
-        if (html) editor.setInnerHTML(html)
+function addPlaces(dictionary, path = []) {
+    for (const [field, value] of Object.entries(dictionary)) {
+        if (value instanceof SegmentEditor) {
+            addPlace(value, ...path.concat(field))
+        } else {
+            addPlaces(value, path.concat(field))
+        }
     }
-    insertAutoPageBreaks()
-    insertAutoPageBreaks()
+}
+
+
+function resolvePath(object, path) {
+    return path.reduce((target, cursor) => target[cursor], object)
 }
