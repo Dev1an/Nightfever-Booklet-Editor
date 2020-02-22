@@ -4,6 +4,8 @@ import {SegmentEditor} from "./SegmentEditor";
 const places = []
 
 export function placeReadings(readings) {
+    const date = new Date(readings.date)
+    readings.dateString = date.toLocaleDateString('nl-BE', {year: 'numeric', month: 'long', day: 'numeric'})
     console.log(readings)
     for (const {keyPath, editor} of places) {
         const html = resolvePath(readings, keyPath)
@@ -39,6 +41,7 @@ export function findPlaceHolders() {
     }
 
     addPlace(dq('.gospel-intro').pmEditor, 'dutch', 'gospel', 'book')
+    addPlace(dq('.date').pmEditor, 'dateString')
     console.log(places)
 }
 
