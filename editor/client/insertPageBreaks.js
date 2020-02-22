@@ -136,7 +136,7 @@ function findOverflowNodes(endOfPage, startOfNextPage) {
                 }
             }
         }
-        return []
+        return blocks.length > 0 ? [blocks[blocks.length - 1]] : []
     }
 
     function shouldSplit(block) {
