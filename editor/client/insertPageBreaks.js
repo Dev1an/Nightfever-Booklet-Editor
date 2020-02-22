@@ -126,6 +126,7 @@ function findOverflowNodes(endOfPage, startOfNextPage) {
                 if (isFlex(block)) {
                     return Array
                         .from(block.children)
+                        .filter(column => sectionOffset(column, true) > endOfPage)
                         .flatMap( column => smallestPartOf([column]) )
                 } else {
                     if (shouldSplit(block)) {
