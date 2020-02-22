@@ -173,7 +173,7 @@ function sectionOffset(element, includeHeight) {
     return (includeHeight===true ? elementRect.bottom : elementRect.y) - sectionY;
 }
 
-function sectionOffsets(element, includeHeight) {
+function sectionOffsets(element) {
     if (element.nodeType === Node.TEXT_NODE) {
         const range = document.createRange()
         range.selectNode(element)
