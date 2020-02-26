@@ -3,8 +3,8 @@
     "name": "standard-minifier-js",
     "version": "2.6.0"
   },
-  "totalMinifiedBytes": 358190,
-  "totalMinifiedGzipBytes": 106862,
+  "totalMinifiedBytes": 357681,
+  "totalMinifiedGzipBytes": 106993,
   "minifiedBytesByPackage": {
     "packages/meteor.js": 9504,
     "packages/static-html.js": 31,
@@ -326,7 +326,7 @@
       {}
     ],
     "app/app.js": [
-      92839,
+      92330,
       {
         "client": {
           "prosemirror-view": {
@@ -344,13 +344,13 @@
             "viewdesc.js": 19178
           },
           "PlainTextEditor.js": 982,
-          "ReadingEditor.js": 2353,
+          "ReadingEditor.js": 2357,
           "SegmentEditor.js": 1089,
           "SongEditor.js": 2100,
           "commands.js": 619,
           "editorUtils.js": 993,
-          "insertPageBreaks.js": 2758,
-          "placeholders.js": 2121,
+          "insertPageBreaks.js": 2805,
+          "placeholders.js": 1561,
           "main.js": 603
         }
       }
