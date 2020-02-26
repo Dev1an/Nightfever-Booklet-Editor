@@ -212,6 +212,10 @@ table {
     margin-bottom: 2em;
 }
 
+.english {
+    font-style: italic;
+}
+
 @media display {
     .prefer-pagebreak::before {
         content: '$ pagebreak $';
