@@ -1,0 +1,70 @@
+{
+  "_from": "meteor-build-client",
+  "_id": "meteor-build-client@0.4.1",
+  "_inBundle": false,
+  "_integrity": "sha1-8xEm9eeXSDDGnUTOlt3c3DYrd5M=",
+  "_location": "/meteor-build-client",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "meteor-build-client",
+    "name": "meteor-build-client",
+    "escapedName": "meteor-build-client",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/meteor-build-client/-/meteor-build-client-0.4.1.tgz",
+  "_shasum": "f31126f5e7974830c69d44ce96dddcdc362b7793",
+  "_spec": "meteor-build-client",
+  "_where": "/Users/damiaan/Documents/Projecten/NightfeverSupplementarySheet",
+  "analyze": true,
+  "author": {
+    "name": "Fabian Vogelsteller",
+    "email": "fabian@frozeman.de"
+  },
+  "bin": {
+    "meteor-build-client": "main.js"
+  },
+  "bugs": {
+    "url": "https://github.com/frozeman/meteor-build-client/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Morten N.O. Nørgaard Henriksen",
+      "email": "mh@gi2.dk"
+    }
+  ],
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "buffered-spawn": "^3.3.2",
+    "commander": "^2.8.1",
+    "simple-spinner": "0.0.3",
+    "underscore": "^1.8.3"
+  },
+  "deprecated": false,
+  "description": "A bundles the client part of a Meteor app.",
+  "devDependencies": {},
+  "homepage": "https://github.com/frozeman/meteor-build-client#readme",
+  "keywords": [
+    "meteor",
+    "client",
+    "client-only",
+    "browser-only"
+  ],
+  "license": "MIT",
+  "main": "main.js",
+  "name": "meteor-build-client",
+  "preferGlobal": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frozeman/meteor-build-client.git"
+  },
+  "version": "0.4.1"
+}
