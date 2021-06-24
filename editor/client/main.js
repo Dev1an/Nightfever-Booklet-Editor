@@ -4,10 +4,14 @@ import { SongEditor } from "./SongEditor";
 import { PlainTextEditor } from "./PlainTextEditor"
 import { ReadingEditor } from "./ReadingEditor";
 import {
-    insertAutoPageBreaks,
-    setSection
+    insertAutoPageBreaks
 } from "./insertPageBreaks";
 import {findPlaceHolders} from "./placeholders";
+
+
+const dynamicStyles = document.createElement('style')
+const hideSecondReading = 'section .second-reading { display: none; }'
+dynamicStyles.innerHTML = hideSecondReading
 
 window.addEventListener('load', function() {
     document.querySelectorAll('.song-editor')
@@ -19,7 +23,18 @@ window.addEventListener('load', function() {
     document.querySelectorAll('.reading-editor')
         .forEach(container => new ReadingEditor(container))
 
+    document.head.appendChild(dynamicStyles)
+    const secondReadingToggle = document.querySelector('.controls input.second-reading-toggle')
+    secondReadingToggle.addEventListener('click', toggleSecondReading)
+
     findPlaceHolders()
 
     insertAutoPageBreaks()
 })
+
+function toggleSecondReading(event) {
+    const toggle = event.target
+    const shouldShowSecondReading = toggle.checked
+    dynamicStyles.innerHTML = shouldShowSecondReading ? '' : hideSecondReading
+    insertAutoPageBreaks()
+}

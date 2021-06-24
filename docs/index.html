@@ -3,7 +3,7 @@
     <head>
         <link rel="stylesheet" type="text/css" class="__meteor-css__" href="8bd5ae71020180dff2b2a76edcf9c768149e4b75.css?meteor_css_resource=true">
         <script type="text/javascript">__meteor_runtime_config__ = JSON.parse(decodeURIComponent("%7B%22meteorRelease%22%3A%22METEOR%401.9%22%2C%22ROOT_URL_PATH_PREFIX%22%3A%22%22%2C%22meteorEnv%22%3A%7B%22NODE_ENV%22%3A%22production%22%7D%2C%22ROOT_URL%22%3A%22%22%7D"));</script>
-        <script type="text/javascript" src="5ec0d9747f84b5cce46d6df727b1ac10a6cc6db5.js"></script>
+        <script type="text/javascript" src="32065d13193c8b63ceff531dc548b9a6e412ca01.js"></script>
         <script type="text/javascript">Meteor.disconnect();</script>
         <title>Nightfever sheet editor - Leuven</title>
     </head>
@@ -23,6 +23,7 @@
       <li>[Cmd+I]: Toggle italic</li>
       <li>[Ctrl+Enter]: New line</li>
       <li>[Enter]: New paragraph</li>
+      <li><label>Add second reading <input type="checkbox" class="second-reading-toggle"></label></li>
     </ul>
   </div>
   <section>
@@ -75,6 +76,7 @@
         <div><h3>First reading</h3></div>
       </div>
     </div>
+
     <div class="flex first-reading">
       <div class="equal">
         <div class="reading-editor dutch">
@@ -137,6 +139,35 @@
       </div>
     </div>
 <!--    <div class="prefer-pagebreak unused"></div>  -->
+
+    <div class="flex title second-reading">
+      <div><h3>Tweede lezing</h3></div>
+      <div class="plaintext-editor comment second-reading reference">Rom. 6, 19-23</div>
+      <div><h3>Second reading</h3></div>
+    </div>
+
+    <div class="flex second-reading">
+      <div class="equal">
+        <div class="reading-editor dutch">
+          <p>Uit de brief van de heilige apostel Paulus aan de christenen van Rome.</p>
+          <p>Broeders en zusters, sprekend tot zwakke mensen druk ik mij erg menselijk uit. Zoals gij eertijds uw ledematen in dienst hebt gesteld van onreinheid en steeds grotere bandeloosheid, zo moet gij ze nu in dienst stellen van de gerechtigheid tot uw heiliging. Toen gij slaven waart van de zonde, stond gij vrij ten opzichte van de gerechtigheid. Welk voordeel had gij toen van daden waarover gij u thans schaamt? Want het einde daarvan is de dood. Maar nu, bevrijd van de zonde en dienstknechten geworden van God, oogst gij heiligheid en tenslotte eeuwig leven. Want het loon van de zonde is de dood, maar de gave van God is het eeuwige leven in Christus Jezus, onze Heer.</p>
+        </div>
+        <p class="avoid-pagebreak">
+          Zo spreekt de Heer.<br>
+          <b>Wij danken God.</b>
+        </p>
+      </div>
+      <div class="equal right">
+        <div class="reading-editor english">
+          <p>From a letter of the apostle Paul to the Romans.</p>
+          <p>Brothers and sisters: I am speaking in human terms because of the weakness of your nature. For just as you present- ed the parts of your bodies as slaves to impurity and to lawlessness for lawless- ness, so now present them as slaves to righteousness for sanctification. For when you were slaves of sin, you were free from righteousness. But what profit did you get then from the things of which you are now ashamed? For the end of those things is death. But now that you have been freed from sin and have be- come slaves of God, the benefit that you have leads to sanctification, and its end is eternal life. For the wages of sin is death, but the gift of God is eternal life in Christ Jesus our Lord.</p>
+        </div>
+        <p class="avoid-pagebreak english">
+          The Word of the Lord.<br>
+          <b>Thanks be to God. </b>
+        </p>
+      </div>
+    </div>
 
     <div class="avoid-pagebreak verse-before-gospel">
       <div class="flex title">
